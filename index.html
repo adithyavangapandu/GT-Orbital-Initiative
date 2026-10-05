@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Georgia Tech Orbital Initiative</title>
+<meta name="description" content="The Georgia Tech Orbital Initiative is Georgia Tech's student CubeSat team. We design, build, and test small satellites.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap">
+</head>
+<body>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#07090C;
+  --bg-2:#0D1116;
+  --bg-3:#131920;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.16);
+  --text:#F3F2EE;
+  --muted:#99A2AC;
+  --gold:#B3A369;
+  --gold-hi:#E3D6A6;
+  --gold-glow:rgba(179,163,105,.35);
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important}
+}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--body);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+.label{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+}
+.label::before{content:"";width:22px;height:1px;background:currentColor}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:48px;padding:0 24px;border-radius:999px;border:1px solid transparent;
+  font-family:var(--body);font-weight:550;font-size:15.5px;white-space:nowrap;
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease;
+}
+.btn-gold{background:var(--gold);color:#07090C}
+.btn-gold:hover{background:var(--gold-hi);box-shadow:0 0 0 6px rgba(179,163,105,.14)}
+.btn-ghost{border-color:var(--line-2);color:var(--text)}
+.btn-ghost:hover{border-color:var(--text)}
+.btn-sm{height:38px;padding:0 18px;font-size:14px}
+.btn .arr{transition:transform .2s ease}
+.btn:hover .arr{transform:translateX(3px)}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  border-bottom:1px solid transparent;
+  transition:background-color .25s ease,border-color .25s ease;
+}
+.site-header.scrolled,.site-header.open{
+  background:rgba(7,9,12,.78);
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+  border-bottom-color:var(--line);
+}
+.header-row{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:34px;height:34px;flex:none}
+.brand-text{
+  font-family:var(--display);font-stretch:125%;font-variation-settings:"wdth" 125;
+  font-weight:700;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1.15;
+}
+.brand-text span{display:block;color:var(--muted);font-weight:500;letter-spacing:.2em;font-size:10.5px}
+.nav{display:flex;align-items:center;gap:32px}
+.nav-links{display:flex;gap:30px}
+.nav-links a{font-size:14.5px;color:var(--muted);transition:color .2s ease}
+.nav-links a:hover{color:var(--text)}
+.menu-btn{
+  display:none;width:42px;height:42px;border-radius:999px;border:1px solid var(--line-2);
+  background:transparent;color:var(--text);cursor:pointer;align-items:center;justify-content:center;
+}
+.menu-btn span,.menu-btn span::before{display:block;width:16px;height:1.5px;background:currentColor;position:relative;transition:transform .2s ease}
+.menu-btn span::before{content:"";position:absolute;top:5px}
+.menu-btn span{transform:translateY(-2.5px)}
+.site-header.open .menu-btn span{transform:rotate(45deg)}
+.site-header.open .menu-btn span::before{transform:translateY(-5px) rotate(-90deg)}
+@media (max-width:860px){
+  .menu-btn{display:inline-flex}
+  .nav .btn{display:none}
+  .nav-links{
+    display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;
+    padding:8px clamp(20px,4vw,40px) 20px;background:rgba(7,9,12,.96);border-bottom:1px solid var(--line);
+  }
+  .nav-links a{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px;color:var(--text)}
+  .site-header.open .nav-links{display:flex}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;overflow:hidden;isolation:isolate;
+  min-height:clamp(700px,94vh,980px);
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding-top:clamp(140px,15vw,184px);
+  background:var(--bg);border-bottom:1px solid var(--line);
+}
+.space{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2}
+.hero-scrim{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(7,9,12,.8) 0%,rgba(7,9,12,.5) 34%,rgba(7,9,12,0) 60%),
+    linear-gradient(0deg,rgba(7,9,12,.94) 0%,rgba(7,9,12,.45) 16%,rgba(7,9,12,0) 32%),
+    linear-gradient(180deg,rgba(7,9,12,.6) 0%,rgba(7,9,12,0) 18%);
+}
+@media (max-width:860px){
+  .hero-scrim{background:linear-gradient(180deg,rgba(7,9,12,.8) 0%,rgba(7,9,12,.55) 50%,rgba(7,9,12,.25) 66%,rgba(7,9,12,.95) 100%)}
+}
+.hero.no-webgl{background:radial-gradient(ellipse 90% 40% at 60% 100%,rgba(179,163,105,.28),transparent 70%),var(--bg)}
+.hero.no-webgl .space{display:none}
+.hero > .wrap{width:100%}
+.hero-inner{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 16px;border-radius:999px;
+  border:1px solid var(--line-2);background:rgba(7,9,12,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(179,163,105,.2)}
+.hero-title{
+  margin-top:30px;
+  font-family:var(--display);font-stretch:125%;font-variation-settings:"wdth" 125;
+  font-weight:700;text-transform:uppercase;letter-spacing:.005em;line-height:.98;
+  font-size:clamp(2.1rem,5vw,4.25rem);max-width:720px;
+}
+.hero-title span{display:block}
+.hero-title .gold{
+  background:linear-gradient(180deg,var(--gold-hi) 10%,var(--gold) 95%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{margin-top:26px;max-width:34em;font-size:clamp(17px,1.6vw,19.5px);color:#B7BEC6;line-height:1.55}
+.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px}
+.hero .hero-cta{justify-content:flex-start}
+.hero .btn-ghost{background:rgba(7,9,12,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+.hero-bottom{position:relative;margin-top:clamp(72px,9vw,120px)}
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:28px 0 clamp(36px,4vw,48px);border-top:1px solid rgba(255,255,255,.12);
+}
+.stats li{padding:4px 28px;border-left:1px solid var(--line)}
+.stats li:first-child{border-left:0;padding-left:0}
+.stats strong{
+  display:block;font-family:var(--display);font-stretch:112%;font-variation-settings:"wdth" 112;
+  font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;
+}
+.stats strong small{font-size:.45em;font-weight:500;color:var(--muted);margin-left:6px;letter-spacing:0}
+.stats span{display:block;margin-top:10px;font-size:14.5px;color:var(--muted);line-height:1.4}
+@media (max-width:760px){
+  .stats{grid-template-columns:repeat(2,1fr);row-gap:36px}
+  .stats li{padding:0 0 0 20px}
+  .stats li:nth-child(odd){border-left:0;padding-left:0}
+}
+
+/* ---------- Sections ---------- */
+.section{padding:clamp(80px,10vw,128px) 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;flex-direction:column;gap:18px;max-width:740px;margin-bottom:clamp(40px,5vw,60px)}
+.h2{
+  font-family:var(--display);font-stretch:112%;font-variation-settings:"wdth" 112;
+  font-weight:600;font-size:clamp(2rem,4vw,3.1rem);line-height:1.04;letter-spacing:-.025em;
+}
+.h2 em{font-style:normal;color:var(--gold)}
+.sec-head p{font-size:18.5px;color:var(--muted);max-width:38em}
+
+/* About */
+.about{display:grid;gap:48px}
+@media (min-width:940px){.about{grid-template-columns:1.05fr 1fr;gap:88px;align-items:start}}
+.about .sec-head{margin-bottom:0}
+.about-body{display:flex;flex-direction:column;gap:22px;font-size:18px;color:#C9CED3;padding-top:6px}
+.checks{display:grid;gap:0;margin-top:14px;border-top:1px solid var(--line)}
+.checks li{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);font-size:16.5px;color:var(--text)}
+.checks li svg{width:20px;height:20px;margin-top:3px;color:var(--gold)}
+.checks li b{font-weight:600}
+.checks li span{color:var(--muted)}
+
+/* Why we started */
+.why{display:grid;gap:48px}
+@media (min-width:940px){.why{grid-template-columns:1fr 1.05fr;gap:88px;align-items:start}}
+.why .sec-head{margin-bottom:0}
+.why-body{display:flex;flex-direction:column;gap:22px;font-size:18px;color:#C9CED3;padding-top:6px}
+.landscape{margin-top:10px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.landscape li{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:18px 22px;border-top:1px solid var(--line);align-items:baseline}
+.landscape li:first-child{border-top:0}
+.landscape .cat{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6F7882}
+.landscape .orgs{font-size:16px;color:#C9CED3}
+.landscape li.gap{background:linear-gradient(90deg,rgba(179,163,105,.16),rgba(179,163,105,.04))}
+.landscape li.gap .cat{color:var(--gold)}
+.landscape li.gap .orgs{color:var(--text);font-weight:600}
+.landscape li.gap s{color:#6F7882;font-weight:400;text-decoration-color:rgba(255,255,255,.35)}
+@media (max-width:560px){.landscape li{grid-template-columns:1fr;gap:4px}}
+
+/* Programs */
+.cards{display:grid;gap:20px}
+@media (min-width:900px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{
+  display:flex;flex-direction:column;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  transition:border-color .25s ease,transform .25s ease;
+}
+.card:hover{border-color:rgba(179,163,105,.45);transform:translateY(-3px)}
+.card-art{
+  height:210px;display:grid;place-items:center;border-bottom:1px solid var(--line);
+  background:radial-gradient(ellipse 70% 80% at 50% 110%,rgba(179,163,105,.2),transparent 70%),var(--bg-2);
+}
+.card-art svg{width:128px;height:128px;color:var(--gold-hi)}
+.card-body{display:flex;flex-direction:column;gap:12px;padding:26px 26px 28px;flex:1}
+.chip{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 11px;border-radius:999px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--muted);
+}
+.chip.live{border-color:rgba(179,163,105,.5);color:var(--gold-hi)}
+.chip.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.card h3{font-family:var(--display);font-stretch:112%;font-variation-settings:"wdth" 112;font-weight:600;font-size:23px;letter-spacing:-.01em;line-height:1.15}
+.card p{color:var(--muted);font-size:16px}
+
+/* Teams */
+.teams{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+@media (min-width:640px){.teams{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.teams{grid-template-columns:repeat(4,1fr)}}
+.team{display:flex;flex-direction:column;gap:10px;padding:26px 24px 24px;background:var(--bg);transition:background-color .2s ease}
+.team:hover{background:var(--bg-2)}
+.team .code{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.08em;color:var(--gold)}
+.team h3{font-size:18px;font-weight:600;line-height:1.3}
+.team p{font-size:15px;color:var(--muted);line-height:1.5;flex:1}
+.team .fit{font-family:var(--mono);font-size:11.5px;color:#6F7882;letter-spacing:.02em;padding-top:12px;border-top:1px solid var(--line)}
+.teams-note{margin-top:24px;color:var(--muted);font-size:16px}
+
+/* Roadmap */
+.track{position:relative;display:grid;gap:0}
+@media (min-width:1000px){
+  .track{grid-template-columns:repeat(6,1fr)}
+  .track::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--line-2)}
+  .track::after{content:"";position:absolute;left:0;width:8.33%;top:7px;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold-hi))}
+}
+.step{position:relative;padding:0 0 36px 36px}
+.step::before{
+  content:"";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--line-2);z-index:1;
+}
+.step::after{content:"";position:absolute;left:7px;top:15px;bottom:0;width:1px;background:var(--line-2)}
+.step:last-child::after{display:none}
+.step.now::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 6px rgba(179,163,105,.18),0 0 24px var(--gold-glow)}
+@media (min-width:1000px){
+  .step{padding:40px 22px 0 0}
+  .step::after{display:none}
+}
+.step .phase{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.step.now .phase{color:var(--gold-hi)}
+.step h3{margin-top:8px;font-size:18px;font-weight:600;line-height:1.3}
+.step p{margin-top:8px;font-size:15px;color:var(--muted);line-height:1.5}
+.step .when{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12px;color:#6F7882}
+.step.now .when{color:var(--gold)}
+.fine{margin-top:36px;font-size:14.5px;color:#6F7882;max-width:52em}
+
+/* Sponsors */
+.sponsors{display:grid;gap:48px}
+@media (min-width:940px){.sponsors{grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}}
+.sponsors .sec-head{margin-bottom:0}
+.asks{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.asks li{height:34px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);font-size:14px;color:#C9CED3}
+.slots{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.slot{
+  height:120px;border-radius:var(--radius);border:1px dashed var(--line-2);display:grid;place-items:center;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#6F7882;
+  transition:border-color .2s ease,color .2s ease;
+}
+.slot:hover{border-color:var(--gold);color:var(--gold-hi)}
+
+/* Join */
+.join{padding:clamp(80px,10vw,128px) 0}
+.join-panel{
+  position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--line);
+  padding:clamp(40px,7vw,88px) clamp(24px,6vw,80px);text-align:center;
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 120%,rgba(179,163,105,.28),transparent 70%),
+    var(--bg-2);
+}
+.join-title{
+  font-family:var(--display);font-stretch:125%;font-variation-settings:"wdth" 125;
+  font-weight:700;text-transform:uppercase;font-size:clamp(1.9rem,4.6vw,3.6rem);line-height:1;letter-spacing:.005em;
+}
+.join-panel > p{margin:20px auto 0;max-width:34em;color:var(--muted);font-size:18px}
+.meet{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:32px}
+.meet div{display:flex;align-items:center;gap:10px;height:40px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.meet dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6F7882}
+.meet dd{margin:0;font-size:15px}
+.join-panel .hero-cta{margin-top:32px}
+
+/* Footer */
+.site-footer{border-top:1px solid var(--line);padding:64px 0 40px}
+.foot-grid{display:grid;gap:40px}
+@media (min-width:800px){.foot-grid{grid-template-columns:1.6fr 1fr 1fr}}
+.foot-grid p{margin-top:16px;color:var(--muted);font-size:15px;max-width:30em}
+.foot-col h4{margin:0 0 14px;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#6F7882}
+.foot-col ul{display:grid;gap:10px}
+.foot-col a{color:#C9CED3;font-size:15px;transition:color .2s ease}
+.foot-col a:hover{color:var(--gold-hi)}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-size:13.5px;color:#6F7882}
+</style>
+
+<header class="site-header" id="header">
+  <div class="wrap header-row">
+    <a class="brand" href="#top" aria-label="Georgia Tech Orbital Initiative home">
+      <svg viewBox="0 0 34 34" aria-hidden="true">
+        <circle cx="17" cy="17" r="7.5" fill="none" stroke="#F3F2EE" stroke-width="2"/>
+        <ellipse cx="17" cy="17" rx="15" ry="5.6" fill="none" stroke="#B3A369" stroke-width="1.5" transform="rotate(-28 17 17)"/>
+        <circle cx="29.4" cy="9.6" r="2.3" fill="#E3D6A6"/>
+      </svg>
+      <span class="brand-text">GT Orbital<span>Initiative</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-links" id="nav-links">
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#teams">Teams</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#sponsors">Sponsors</a>
+      </div>
+      <a class="btn btn-gold btn-sm" href="#join">Join us</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <canvas class="space" id="space" aria-hidden="true"></canvas>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow"><i aria-hidden="true"></i>Founding members wanted · Fall 2026</p>
+      <h1 class="hero-title"><span>Georgia Tech</span> <span class="gold">Orbital Initiative</span></h1>
+      <p class="hero-sub">Georgia Tech's student CubeSat team. We design, build, and test small satellites, and we're working toward launching our own.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#join">Join the team <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#programs">Explore our programs</a>
+      </div>
+    </div>
+
+    <div class="wrap hero-bottom">
+      <ul class="stats">
+        <li><strong>10<small>cm</small></strong><span>Edge length of one CubeSat unit</span></li>
+        <li><strong>420<small>km</small></strong><span>Typical CubeSat deployment altitude</span></li>
+        <li><strong>93<small>min</small></strong><span>To circle the Earth once</span></li>
+        <li><strong>8</strong><span>Subsystem teams to join</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="section" id="about">
+    <div class="wrap about">
+      <div class="sec-head">
+        <span class="label">About</span>
+        <h2 class="h2">A spacecraft built by students.</h2>
+      </div>
+      <div class="about-body">
+        <p>The Georgia Tech Orbital Initiative is a new student organization focused on small satellites. Members take a spacecraft through its whole life: requirements, design reviews, fabrication, environmental testing, and operations in orbit.</p>
+        <p>CubeSats are small enough for a student team to build and complex enough to need every discipline a full-size spacecraft does. That makes them the fastest way into space engineering.</p>
+        <ul class="checks">
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Every major, every year.</b> <span>Undergrad and grad students welcome.</span></div></li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>No experience required.</b> <span>We teach soldering, CAD, and flight software from scratch.</span></div></li>
+          <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Real hardware on your résumé.</b> <span>Present design reviews and build flight-style systems.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY WE STARTED ================= -->
+  <section class="section" id="why">
+    <div class="wrap why">
+      <div class="sec-head">
+        <span class="label">Why we started</span>
+        <h2 class="h2">Georgia Tech has a rocket team. Undergrads don't have a <em>satellite team.</em></h2>
+      </div>
+      <div class="why-body">
+        <p>Georgia Tech students can launch liquid-fueled rockets, fly high-altitude balloons, and study the night sky through student-run clubs. Until now, there was no student-run organization for undergraduates who want to build satellites.</p>
+        <p>Undergrads interested in spacecraft have mostly had to land a research position in a faculty lab, and those spots aren't open to everyone. We started the Orbital Initiative so any student who wants to build a satellite has a place to do it.</p>
+        <ul class="landscape" aria-label="Space student organizations at Georgia Tech">
+          <li><span class="cat">Rockets</span><span class="orgs">Yellow Jacket Space Program · Ramblin' Rocket Club</span></li>
+          <li><span class="cat">Space community</span><span class="orgs">SEDS · AIAA · Astronomy Club · ExplOrigins</span></li>
+          <li class="gap"><span class="cat">Satellites</span><span class="orgs"><s>No student club</s> &nbsp;Georgia Tech Orbital Initiative</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAMS ================= -->
+  <section class="section" id="programs">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Programs</span>
+        <h2 class="h2">What we're building.</h2>
+        <p>Three programs that take a new member from a workbench to a satellite in orbit.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-art" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+              <path d="M60 10 90 27 60 44 30 27Z"/>
+              <path d="M30 27v66l30 17V44M90 27v66l-30 17"/>
+              <path d="M30 49l30 17 30-17M30 71l30 17 30-17" opacity=".55"/>
+              <path d="M36 38v10M36 60v10M36 82v8M84 38v10M84 60v10M84 82v8" opacity=".35"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="chip live">Concept phase</span>
+            <h3>Flagship CubeSat</h3>
+            <p>Our first satellite: a 3U CubeSat designed, built, and tested by students. Mission selection is underway, and founding members help choose the payload.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-art" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+              <rect x="12" y="30" width="96" height="60" rx="4"/>
+              <rect x="24" y="42" width="22" height="22" rx="2"/>
+              <rect x="58" y="42" width="14" height="10" rx="1.5"/>
+              <rect x="82" y="42" width="14" height="10" rx="1.5"/>
+              <rect x="58" y="64" width="38" height="14" rx="1.5"/>
+              <path d="M46 53h12M72 47h10M65 52v12M89 52v12M35 64v14h23" opacity=".55"/>
+              <path d="M28 30v-8M40 30v-8M52 30v-8M68 90v8M80 90v8M92 90v8" opacity=".35"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="chip live">Starting Fall 2026</span>
+            <h3>FlatSat Lab</h3>
+            <p>Every subsystem of a real satellite laid out on a lab bench. New members learn soldering, embedded code, and integration on hardware they can touch.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-art" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <path d="M25 85 95 35"/>
+              <path d="M22.7 59.6 48.3 95.4M38.5 52 60.5 83M54.2 44.5 72.8 70.5M69.9 36.9 85.1 58.1M85.7 29.4 97.3 45.6"/>
+              <path d="M60 60v52M48 112h24"/>
+              <path d="M101 22a14 14 0 0 1 9 9M98 12a26 26 0 0 1 17 17" opacity=".5"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="chip">Planned</span>
+            <h3>Campus Ground Station</h3>
+            <p>A UHF/VHF station on campus that tracks and receives signals from satellites already in orbit, and one day from our own.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TEAMS ================= -->
+  <section class="section" id="teams">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Teams</span>
+        <h2 class="h2">Eight subsystem teams. <em>One spacecraft.</em></h2>
+        <p>Members join a subsystem, the same way the space industry organizes a spacecraft program. You can switch teams at any time.</p>
+      </div>
+      <div class="teams">
+        <article class="team"><span class="code">STR</span><h3>Structures &amp; Thermal</h3><p>Chassis design, CAD, launch-load analysis, and thermal models for sunlight and eclipse.</p><span class="fit">AE · ME · MSE</span></article>
+        <article class="team"><span class="code">EPS</span><h3>Electrical Power</h3><p>Solar cells, battery packs, and power regulation for a spacecraft that runs on a few watts.</p><span class="fit">EE · CmpE · ME</span></article>
+        <article class="team"><span class="code">ADCS</span><h3>Attitude Control</h3><p>Sun sensors, magnetorquers, reaction wheels, and the control laws that point the satellite.</p><span class="fit">AE · ME · EE · Math</span></article>
+        <article class="team"><span class="code">C&amp;DH</span><h3>Flight Software</h3><p>The onboard computer: embedded firmware, data handling, and fault recovery with no reset button.</p><span class="fit">CS · CmpE · EE</span></article>
+        <article class="team"><span class="code">COMMS</span><h3>Communications</h3><p>Radios, deployable antennas, link budgets, and our campus ground station.</p><span class="fit">EE · Physics · CS</span></article>
+        <article class="team"><span class="code">PAY</span><h3>Payload &amp; Science</h3><p>The reason we fly. Choosing the experiment and turning science goals into requirements.</p><span class="fit">Physics · EAS · BME · Any</span></article>
+        <article class="team"><span class="code">SYS</span><h3>Systems Engineering</h3><p>Requirements, interfaces, schedules, and design reviews: the thread that ties every team together.</p><span class="fit">AE · ISyE · Any</span></article>
+        <article class="team"><span class="code">OPS</span><h3>Outreach &amp; Operations</h3><p>Sponsorships, budget, events, branding, and K–12 outreach that keep the program running.</p><span class="fit">Scheller · LMC · Any</span></article>
+      </div>
+      <p class="teams-note">Not sure where you fit? Come to a meeting. Most members find their team after a few workshops.</p>
+    </div>
+  </section>
+
+  <!-- ================= ROADMAP ================= -->
+  <section class="section" id="roadmap">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Roadmap</span>
+        <h2 class="h2">The path to orbit.</h2>
+        <p>We follow the NASA project life cycle, the same phases and design reviews used on professional missions.</p>
+      </div>
+      <ol class="track">
+        <li class="step now"><span class="phase">Pre-Phase A</span><h3>Build the team</h3><p>Recruit founding members, run skills workshops, and explore mission concepts.</p><span class="when">Now · Fall 2026</span></li>
+        <li class="step"><span class="phase">Phase A</span><h3>Concept &amp; trades</h3><p>Pick the mission, set requirements, and assemble the FlatSat.</p><span class="when">Target · Spring 2027</span></li>
+        <li class="step"><span class="phase">Phase B</span><h3>Preliminary design</h3><p>Size every subsystem, select components, and pass PDR.</p><span class="when">Target · Fall 2027</span></li>
+        <li class="step"><span class="phase">Phase C</span><h3>Final design</h3><p>Build an engineering model, finalize software, and pass CDR.</p><span class="when">Target · Spring 2028</span></li>
+        <li class="step"><span class="phase">Phase D</span><h3>Build &amp; test</h3><p>Assemble flight hardware and qualify it in vibration and thermal-vacuum tests.</p><span class="when">Target · 2028–29</span></li>
+        <li class="step"><span class="phase">Phase E</span><h3>Launch &amp; operate</h3><p>Fly on a rideshare or through NASA's CubeSat Launch Initiative.</p><span class="when">Launch · TBD</span></li>
+      </ol>
+      <p class="fine">Dates are targets and depend on team size, funding, and launch availability. Joining early means you help shape the mission.</p>
+    </div>
+  </section>
+
+  <!-- ================= SPONSORS ================= -->
+  <section class="section" id="sponsors">
+    <div class="wrap sponsors">
+      <div class="sec-head">
+        <span class="label">Sponsors</span>
+        <h2 class="h2">Become a <em>founding sponsor.</em></h2>
+        <p>Help Georgia Tech students reach orbit. Founding partners get recognition on our hardware, our site, and at every design review.</p>
+        <ul class="asks">
+          <li>Faculty advisors</li>
+          <li>Industry mentors</li>
+          <li>Test facilities</li>
+          <li>Components</li>
+          <li>Funding</li>
+        </ul>
+        <!-- EDIT: point at your sponsorship email or form -->
+        <div><a class="btn btn-ghost" href="#join" style="margin-top:10px">Partner with us <span class="arr" aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="slots" aria-label="Open sponsor spots">
+        <div class="slot">Your logo here</div>
+        <div class="slot">Your logo here</div>
+        <div class="slot">Your logo here</div>
+        <div class="slot">Your logo here</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= JOIN ================= -->
+  <section class="join" id="join">
+    <div class="wrap">
+      <div class="join-panel">
+        <span class="label">Join us</span>
+        <h2 class="join-title" style="margin-top:22px">Help build<br>the first one.</h2>
+        <p>Founding members set the mission, the culture, and the way we build. Any Georgia Tech student can join, and no experience is needed.</p>
+        <!-- EDIT: replace TBA with real meeting details -->
+        <dl class="meet">
+          <div><dt>First meeting</dt><dd>TBA</dd></div>
+          <div><dt>Location</dt><dd>TBA</dd></div>
+        </dl>
+        <div class="hero-cta">
+          <!-- EDIT: link to your interest form and club email -->
+          <a class="btn btn-gold" href="#join">Get on the interest list <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#join">Email the team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top" aria-label="Georgia Tech Orbital Initiative home">
+          <svg viewBox="0 0 34 34" aria-hidden="true">
+            <circle cx="17" cy="17" r="7.5" fill="none" stroke="#F3F2EE" stroke-width="2"/>
+            <ellipse cx="17" cy="17" rx="15" ry="5.6" fill="none" stroke="#B3A369" stroke-width="1.5" transform="rotate(-28 17 17)"/>
+            <circle cx="29.4" cy="9.6" r="2.3" fill="#E3D6A6"/>
+          </svg>
+          <span class="brand-text">GT Orbital<span>Initiative</span></span>
+        </a>
+        <p>Georgia Tech's student CubeSat team, designing, building, and testing small satellites in Atlanta, Georgia.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#teams">Teams</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <!-- EDIT: add real links -->
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">GT Engage</a></li>
+          <li><a href="#join">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Georgia Tech Orbital Initiative</span>
+      <span>A student organization at the Georgia Institute of Technology</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var header = document.getElementById('header');
+  var btn = document.getElementById('menu-btn');
+  var links = document.getElementById('nav-links');
+  function onScroll(){ header.classList.toggle('scrolled', window.scrollY > 12); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+  function setOpen(open){
+    header.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  btn.addEventListener('click', function(){ setOpen(!header.classList.contains('open')); });
+  links.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setOpen(false); });
+})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* Hero scene: procedural Earth at orbital sunrise + a 3U CubeSat with deployed arrays. */
+(function(){
+  var hero = document.querySelector('.hero');
+  var canvas = document.getElementById('space');
+  function fallback(){ hero.classList.add('no-webgl'); }
+  if(!window.THREE || !canvas){ fallback(); return; }
+
+  var renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, powerPreference:'high-performance'});
+  }catch(e){ fallback(); return; }
+  if(!renderer.getContext()){ fallback(); return; }
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pixelRatio = Math.min(window.devicePixelRatio || 1, 1.75);
+  renderer.setPixelRatio(pixelRatio);
+  renderer.setClearColor(0x07090c, 1);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  renderer.physicallyCorrectLights = true;
+  renderer.autoClear = false;
+
+  var FOV = 40;
+  var camera = new THREE.PerspectiveCamera(FOV, 1, 0.05, 100);
+  var scene = new THREE.Scene();
+
+  /* ---------- Earth + atmosphere (full-screen ray-traced pass) ---------- */
+  var sunDir = new THREE.Vector3(0.75, -0.38, -0.54).normalize();
+  var uniforms = {
+    uRes:{value:new THREE.Vector2(1,1)},
+    uInvProj:{value:camera.projectionMatrixInverse},
+    uCamWorld:{value:camera.matrixWorld},
+    uCamPos:{value:camera.position},
+    uC:{value:new THREE.Vector3(0,-1073,-537)},
+    uR:{value:1000.0},
+    uSun:{value:sunDir},
+    uTime:{value:0}
+  };
+  var earthFrag = [
+    'precision highp float;',
+    'uniform vec2 uRes; uniform mat4 uInvProj; uniform mat4 uCamWorld; uniform vec3 uCamPos;',
+    'uniform vec3 uC; uniform float uR; uniform vec3 uSun; uniform float uTime;',
+    'float hash(vec3 p){ p=fract(p*0.3183099+0.1); p*=17.0; return fract(p.x*p.y*p.z*(p.x+p.y+p.z)); }',
+    'float noise(vec3 x){ vec3 i=floor(x); vec3 f=fract(x); f=f*f*(3.0-2.0*f);',
+    '  return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),',
+    '             mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z); }',
+    'float fbm5(vec3 p){ float v=0.0,a=0.5; for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03+vec3(1.7,9.2,3.1); a*=0.5; } return v; }',
+    'float fbm3(vec3 p){ float v=0.0,a=0.5; for(int i=0;i<3;i++){ v+=a*noise(p); p=p*2.07+vec3(5.1,1.3,7.7); a*=0.5; } return v; }',
+    'vec3 aces(vec3 x){ return clamp((x*(2.51*x+0.03))/(x*(2.43*x+0.59)+0.14),0.0,1.0); }',
+    'void main(){',
+    '  vec2 ndc = gl_FragCoord.xy/uRes*2.0-1.0;',
+    '  vec4 v = uInvProj*vec4(ndc,1.0,1.0);',
+    '  vec3 rd = normalize((uCamWorld*vec4(v.xyz/v.w,0.0)).xyz);',
+    '  vec3 ro = uCamPos;',
+    '  vec3 oc = ro-uC;',
+    '  float b = dot(oc,rd); float c = dot(oc,oc)-uR*uR; float h = b*b-c;',
+    '  float tca = -b;',
+    '  float hit = step(0.0,h)*step(0.0,tca);',
+    '  vec3 closest = oc+rd*max(tca,0.0);',
+    '  float dist = length(closest);',
+    '  vec3 nL = closest/dist;',
+    '  float sunL = dot(nL,uSun);',
+    '  vec3 col = vec3(0.0);',
+    '  if(hit<0.5){',
+    '    vec3 sp = rd*380.0; vec3 cell = floor(sp); float s = hash(cell);',
+    '    float star = step(0.9972,s)*smoothstep(0.42,0.0,length(fract(sp)-0.5));',
+    '    col += mix(vec3(1.0,0.86,0.7),vec3(0.75,0.85,1.0),hash(cell+7.3))*star*(0.25+0.9*hash(cell+3.1));',
+    '  } else {',
+    '    float t = -b-sqrt(h);',
+    '    vec3 p = ro+rd*t; vec3 n = normalize(p-uC);',
+    '    float ang = uTime*0.0025; float ca=cos(ang), sa=sin(ang);',
+    '    vec3 q = vec3(ca*n.x+sa*n.z, n.y, -sa*n.x+ca*n.z);',
+    '    float cont = fbm5(q*2.4);',
+    '    float land = smoothstep(0.50,0.535,cont);',
+    '    float ndl = dot(n,uSun);',
+    '    float day = smoothstep(-0.06,0.2,ndl);',
+    '    float twi = exp(-pow((ndl+0.03)/0.11,2.0));',
+    '    float cl = fbm5(q*6.5+vec3(uTime*0.0015,0.0,0.0));',
+    '    float clouds = smoothstep(0.5,0.76,cl+0.18*(fbm3(q*30.0)-0.5));',
+    '    vec3 ocean = vec3(0.008,0.035,0.075);',
+    '    vec3 ground = mix(vec3(0.06,0.08,0.045),vec3(0.17,0.14,0.09),fbm3(q*14.0));',
+    '    vec3 albedo = mix(mix(ocean,ground,land),vec3(0.92),clouds);',
+    '    vec3 lit = albedo*(vec3(1.0,0.95,0.88)*max(ndl,0.0)*2.4 + vec3(1.0,0.5,0.2)*twi*(0.25+0.9*clouds));',
+    '    float spec = pow(max(dot(reflect(rd,n),uSun),0.0),70.0)*(1.0-land)*(1.0-clouds)*day;',
+    '    lit += vec3(1.0,0.78,0.5)*spec*2.5;',
+    '    float night = 1.0-smoothstep(-0.14,0.02,ndl);',
+    '    float cityMask = smoothstep(0.54,0.6,cont)*smoothstep(0.48,0.72,fbm3(q*18.0));',
+    '    float sparkle = smoothstep(0.7,0.97,noise(q*700.0)) + 0.4*smoothstep(0.62,0.92,noise(q*180.0));',
+    '    lit += vec3(1.0,0.6,0.24)*cityMask*sparkle*night*(1.0-clouds*0.9)*2.8;',
+    '    lit += albedo*vec3(0.03,0.045,0.08)*night;',
+    '    float mu = max(dot(-rd,n),0.0);',
+    '    float haze = pow(1.0-mu,5.0);',
+    '    vec3 hazeCol = mix(vec3(0.015,0.04,0.1),vec3(0.3,0.55,1.0),day) + vec3(1.0,0.55,0.22)*twi*1.4;',
+    '    lit = mix(lit,hazeCol,haze*0.9);',
+    '    col = lit;',
+    '  }',
+    '  float hgt = max(dist-uR,0.0);',
+    '  float dayL = smoothstep(-0.3,0.35,sunL);',
+    '  float twiL = exp(-pow((sunL-0.02)/0.22,2.0));',
+    '  vec3 atm = vec3(0.22,0.48,1.0)*dayL*1.5 + vec3(1.0,0.58,0.24)*twiL*2.0 + vec3(0.02,0.05,0.12);',
+    '  col += atm*exp(-hgt/26.0)*(1.0-hit);',
+    '  col += (vec3(0.45,0.72,1.0)*dayL + vec3(1.0,0.72,0.38)*twiL*1.6)*exp(-hgt/3.5)*(1.0-hit)*1.3;',
+    '  float sd = max(dot(rd,uSun),0.0);',
+    '  col += vec3(1.0,0.7,0.4)*pow(sd,10.0)*0.3;',
+    '  col += vec3(1.0,0.86,0.62)*pow(sd,180.0)*1.4*(1.0-hit);',
+    '  col = aces(col);',
+    '  col = pow(col,vec3(1.0/2.2));',
+    '  col += (hash(vec3(gl_FragCoord.xy,uTime))-0.5)/255.0;',
+    '  gl_FragColor = vec4(col,1.0);',
+    '}'
+  ].join('\n');
+  var bgScene = new THREE.Scene();
+  var bgCam = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+  bgScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2), new THREE.ShaderMaterial({
+    uniforms:uniforms,
+    vertexShader:'void main(){ gl_Position = vec4(position.xy,0.0,1.0); }',
+    fragmentShader:earthFrag,
+    depthTest:false, depthWrite:false
+  })));
+
+  /* ---------- Environment reflections for metals (8-bit cube map, works on any GPU) ---------- */
+  function envCube(){
+    var S = 64, faces = [];
+    var key = new THREE.Vector3(-0.6, 0.7, 0.8).normalize();
+    var dirs = [
+      function(u,v){ return [1,-v,-u]; }, function(u,v){ return [-1,-v,u]; },
+      function(u,v){ return [u,1,v]; },   function(u,v){ return [u,-1,-v]; },
+      function(u,v){ return [u,-v,1]; },  function(u,v){ return [-u,-v,-1]; }
+    ];
+    function srgb(x){ x = Math.max(0, Math.min(1, x)); return Math.round(255*Math.pow(x, 1/2.2)); }
+    for(var f=0; f<6; f++){
+      var cv = document.createElement('canvas'); cv.width = cv.height = S;
+      var g = cv.getContext('2d'), img = g.createImageData(S, S), d = img.data;
+      for(var y=0; y<S; y++){ for(var x=0; x<S; x++){
+        var a = dirs[f]((x+0.5)/S*2-1, (y+0.5)/S*2-1), l = Math.hypot(a[0],a[1],a[2]);
+        var dx=a[0]/l, dy=a[1]/l, dz=a[2]/l;
+        var ground = Math.max(0, Math.min(1, (0.05-dy)/0.4)); ground = ground*ground*(3-2*ground);
+        var r = 0.01 + 0.07*ground, gg = 0.012 + 0.11*ground, bb = 0.02 + 0.2*ground;
+        var band = Math.exp(-Math.pow(dy/0.14, 2))*0.35; r += 0.3*band; gg += 0.45*band; bb += 0.8*band;
+        var s = Math.pow(Math.max(0, dx*sunDir.x+dy*sunDir.y+dz*sunDir.z), 18)*1.6; r += s; gg += 0.72*s; bb += 0.42*s;
+        var k = Math.pow(Math.max(0, dx*key.x+dy*key.y+dz*key.z), 5)*0.75; r += 0.9*k; gg += 0.93*k; bb += k;
+        var i = (y*S+x)*4; d[i]=srgb(r); d[i+1]=srgb(gg); d[i+2]=srgb(bb); d[i+3]=255;
+      }}
+      g.putImageData(img, 0, 0); faces.push(cv);
+    }
+    var tex = new THREE.CubeTexture(faces); tex.encoding = THREE.sRGBEncoding; tex.needsUpdate = true;
+    return tex;
+  }
+  var envMap = envCube();
+
+  scene.add(new THREE.AmbientLight(0x3a4a66, 0.18));
+  var sun = new THREE.DirectionalLight(0xffd6a0, 6.0); scene.add(sun);
+  var key = new THREE.DirectionalLight(0xfff4e6, 2.1); scene.add(key);
+  var earthshine = new THREE.DirectionalLight(0x6f9bff, 1.0); scene.add(earthshine);
+  var SUN_OFF = new THREE.Vector3(sunDir.x, sunDir.y+0.55, sunDir.z).normalize().multiplyScalar(10);
+  var KEY_OFF = new THREE.Vector3(-3, 2.5, 4).normalize().multiplyScalar(10);
+  var EARTH_OFF = new THREE.Vector3(0.5, -3, 1.5).normalize().multiplyScalar(10);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  key.castShadow = true;
+  key.shadow.mapSize.set(2048, 2048);
+  (function(c){ c.left=-1.9; c.right=1.9; c.top=1.9; c.bottom=-1.9; c.near=6; c.far=14; })(key.shadow.camera);
+  key.shadow.bias = -0.0005; key.shadow.normalBias = 0.01;
+
+  /* ---------- CubeSat: textures ---------- */
+  var maxAniso = renderer.capabilities.getMaxAnisotropy();
+  function canvasTex(cv, srgb, repeat){
+    var t = new THREE.CanvasTexture(cv);
+    if(srgb) t.encoding = THREE.sRGBEncoding;
+    if(repeat){ t.wrapS = t.wrapT = THREE.RepeatWrapping; }
+    t.anisotropy = maxAniso; return t;
+  }
+  function rng(seed){ return function(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }; }
+  function clipPath(g, x, y, w, h, c){
+    g.beginPath(); g.moveTo(x+c,y); g.lineTo(x+w-c,y); g.lineTo(x+w,y+c); g.lineTo(x+w,y+h-c);
+    g.lineTo(x+w-c,y+h); g.lineTo(x+c,y+h); g.lineTo(x,y+h-c); g.lineTo(x,y+c); g.closePath();
+  }
+  function tint(rgb, t){
+    return 'rgb(' + Math.min(255,Math.round(rgb[0]*(1+t))) + ',' + Math.min(255,Math.round(rgb[1]*(1+t*0.6))) + ',' + Math.min(255,Math.round(rgb[2]*(1-t*0.25))) + ')';
+  }
+
+  // Solar panel: 7 triple-junction cells on a PCB. Color, roughness and metalness drawn from one layout.
+  function panelMaps(){
+    var W=512, H=2048, n=7, m=24, gap=16, cut=34;
+    var cellH=(H-2*m-(n-1)*gap)/n, cellW=W-2*m;
+    var out = {};
+    ['color','rough','metal'].forEach(function(mode){
+      var cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+      var g=cv.getContext('2d'), R=rng(11);
+      g.fillStyle = mode==='color' ? '#142019' : mode==='rough' ? '#9c9c9c' : '#000000';
+      g.fillRect(0,0,W,H);
+      if(mode==='color'){
+        g.fillStyle='rgba(235,240,235,0.7)'; g.font='600 12px monospace';
+        g.fillText('GTOI  SP-3U-A', m+6, H-8);
+        g.fillText('+X  S/N 001', W-m-92, 16);
+      }
+      for(var i=0;i<n;i++){
+        var x=m, y=m+i*(cellH+gap), w=cellW, h=cellH, t=(R()-0.5)*0.16;
+        clipPath(g,x,y,w,h,cut);
+        if(mode==='color'){
+          var gr=g.createLinearGradient(x,y,x+w*0.8,y+h*1.4);
+          gr.addColorStop(0, tint([48,54,122],t)); gr.addColorStop(0.45, tint([22,26,74],t)); gr.addColorStop(1, tint([40,46,108],t));
+          g.fillStyle=gr;
+        } else g.fillStyle = mode==='rough' ? '#555555' : '#101010';
+        g.fill();
+        if(mode==='color'){
+          g.save(); clipPath(g,x,y,w,h,cut); g.clip();
+          g.strokeStyle='rgba(190,200,240,0.17)'; g.lineWidth=1;
+          for(var fx=x+4; fx<x+w; fx+=7){ g.beginPath(); g.moveTo(fx+0.5,y); g.lineTo(fx+0.5,y+h); g.stroke(); }
+          g.fillStyle='rgba(255,255,255,0.035)'; g.fillRect(x, y, w, h*0.18);
+          g.restore();
+        }
+        var metal = mode==='color' ? '#d6dae0' : mode==='rough' ? '#555555' : '#ffffff';
+        g.fillStyle=metal;
+        g.fillRect(x+cut, y+6, w-2*cut, 7); g.fillRect(x+cut, y+h-13, w-2*cut, 7);
+        g.fillStyle = mode==='color' ? '#aeb4bd' : metal;
+        g.beginPath(); g.moveTo(x+w,y+h-cut+7); g.lineTo(x+w,y+h); g.lineTo(x+w-cut+7,y+h); g.closePath(); g.fill();
+        if(i<n-1){
+          g.fillStyle = mode==='color' ? '#c9ced5' : metal;
+          for(var k=0;k<4;k++){ var ix=x+70+k*((w-140)/3); g.fillRect(ix-10, y+h-9, 20, gap+18); }
+        }
+      }
+      out[mode] = canvasTex(cv, mode==='color');
+    });
+    return out;
+  }
+  function pcbBackTex(){
+    var W=512, H=2048, cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+    var g=cv.getContext('2d'), R=rng(5);
+    g.fillStyle='#132219'; g.fillRect(0,0,W,H);
+    g.strokeStyle='rgba(70,130,85,0.45)'; g.lineWidth=3;
+    for(var i=0;i<40;i++){
+      var y=40+i*50, x0=30+R()*60, x1=200+R()*120;
+      g.beginPath(); g.moveTo(x0,y); g.lineTo(x1,y); g.lineTo(x1+30,y+30); g.lineTo(W-40,y+30); g.stroke();
+    }
+    g.fillStyle='rgba(215,180,95,0.9)';
+    for(var v=0; v<160; v++){ g.beginPath(); g.arc(30+R()*(W-60), 30+R()*(H-60), 3, 0, Math.PI*2); g.fill(); }
+    g.strokeStyle='rgba(235,240,235,0.55)'; g.lineWidth=2;
+    g.strokeRect(150, 900, 210, 150);
+    g.fillStyle='rgba(235,240,235,0.65)'; g.font='600 20px monospace';
+    g.fillText('GEORGIA TECH', 170, 950); g.fillText('ORBITAL INIT.', 170, 985); g.fillText('DSA-1  REV A', 170, 1030);
+    return canvasTex(cv, true);
+  }
+  function brushedTex(){
+    var S=256, cv=document.createElement('canvas'); cv.width=S; cv.height=S;
+    var g=cv.getContext('2d'), R=rng(3);
+    g.fillStyle='#8c8c8c'; g.fillRect(0,0,S,S);
+    for(var i=0;i<1400;i++){
+      var v=Math.round(60+R()*140); g.strokeStyle='rgba('+v+','+v+','+v+',0.22)';
+      var y=R()*S, x=R()*S, len=20+R()*120;
+      g.beginPath(); g.moveTo(x,y); g.lineTo(x+len,y); g.stroke();
+    }
+    return canvasTex(cv, false, true);
+  }
+
+  /* ---------- CubeSat: materials ---------- */
+  function std(o){ o.envMap = envMap; if(o.envMapIntensity===undefined) o.envMapIntensity = 1.5; return new THREE.MeshStandardMaterial(o); }
+  function phys(o){ o.envMap = envMap; if(o.envMapIntensity===undefined) o.envMapIntensity = 1.5; return new THREE.MeshPhysicalMaterial(o); }
+  var pm = panelMaps(), brushed = brushedTex();
+  var mCell = phys({map:pm.color, roughnessMap:pm.rough, metalnessMap:pm.metal, roughness:1, metalness:1, clearcoat:0.35, clearcoatRoughness:0.18, envMapIntensity:0.9});
+  var mPcbBack = std({map:pcbBackTex(), roughness:0.55, metalness:0.05});
+  var mPcbEdge = std({color:0x1d3526, roughness:0.6, metalness:0});
+  var mAl = std({color:0xb9bdc3, metalness:1, roughness:0.7, roughnessMap:brushed, bumpMap:brushed, bumpScale:0.0006, envMapIntensity:1.3});
+  var mAnod = std({color:0x2b2e33, metalness:0.75, roughness:0.55, roughnessMap:brushed, envMapIntensity:1.6});
+  var mBlack = std({color:0x0f1013, metalness:0.25, roughness:0.5});
+  var mSteel = std({color:0xa4a9b0, metalness:1, roughness:0.28, envMapIntensity:2.2});
+  var mTape = std({color:0xdfe1e5, metalness:1, roughness:0.22, envMapIntensity:1.6});
+  var mGlass = phys({color:0x0d0b22, metalness:0.1, roughness:0.02, clearcoat:1, clearcoatRoughness:0.01, envMapIntensity:3.2});
+  var mGold = std({color:0xdcaa45, metalness:1, roughness:0.3, envMapIntensity:2.2});
+  var mCeramic = std({color:0xd8cdb0, metalness:0, roughness:0.5});
+  var mWhite = std({color:0xe8e6df, metalness:0, roughness:0.45});
+
+  /* ---------- CubeSat: geometry (1 unit = 100 mm) ---------- */
+  function roundedRect(w, h, r){
+    var s = new THREE.Shape(), x=-w/2, y=-h/2;
+    s.moveTo(x+r,y); s.lineTo(x+w-r,y); s.quadraticCurveTo(x+w,y,x+w,y+r);
+    s.lineTo(x+w,y+h-r); s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    s.lineTo(x+r,y+h); s.quadraticCurveTo(x,y+h,x,y+h-r);
+    s.lineTo(x,y+r); s.quadraticCurveTo(x,y,x+r,y);
+    return s;
+  }
+  // Bar along Y with a rounded cross-section and softened ends.
+  function bar(sx, len, sz, r, mat){
+    var bev = Math.min(r*0.5, 0.006);
+    var geo = new THREE.ExtrudeGeometry(roundedRect(sx-2*bev, sz-2*bev, Math.max(r-bev,0.002)),
+      {depth:len-2*bev, bevelEnabled:true, bevelThickness:bev, bevelSize:bev, bevelSegments:2, curveSegments:4});
+    geo.translate(0, 0, -(len-2*bev)/2); geo.rotateX(-Math.PI/2);
+    return new THREE.Mesh(geo, mat);
+  }
+  function mesh(geo, mat){ return new THREE.Mesh(geo, mat); }
+  function put(parent, obj, x, y, z){ obj.position.set(x||0, y||0, z||0); parent.add(obj); return obj; }
+
+  var sat = new THREE.Group();
+  var L = 3.405, RP = 0.4575, screwGeo = new THREE.CylinderGeometry(0.011,0.011,0.008,12);
+
+  // chassis core and rails
+  put(sat, mesh(new THREE.BoxGeometry(0.9, L-0.18, 0.9), mBlack));
+  [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(function(s){ put(sat, bar(0.085, L, 0.085, 0.014, mAl), s[0]*RP, 0, s[1]*RP); });
+  // end frames
+  [-L/2+0.045, L/2-0.045].forEach(function(y){
+    [1,-1].forEach(function(s){
+      var bx = bar(0.06, 0.84, 0.06, 0.01, mAl); bx.rotation.z = Math.PI/2; put(sat, bx, 0, y, s*RP);
+      var bz = bar(0.06, 0.84, 0.06, 0.01, mAl); bz.rotation.x = Math.PI/2; put(sat, bz, s*RP, y, 0);
+    });
+  });
+  // separation springs and kill-switch plungers on the rail feet
+  [[1,1,1],[-1,-1,1],[1,-1,-1],[-1,1,-1]].forEach(function(s){
+    put(sat, mesh(new THREE.CylinderGeometry(0.02,0.02,0.036,16), mSteel), s[0]*RP, s[2]*(L/2+0.018), s[1]*RP);
+  });
+
+  // body-mounted solar panels on all four sides
+  function sidePanel(axis, s){
+    var mats = [mPcbEdge,mPcbEdge,mPcbEdge,mPcbEdge,mPcbEdge,mPcbEdge], p;
+    if(axis === 'x'){
+      mats[s>0?0:1] = mCell; mats[s>0?1:0] = mBlack;
+      p = mesh(new THREE.BoxGeometry(0.016, 3.245, 0.83), mats); p.position.set(s*0.482, 0, 0);
+    } else {
+      mats[s>0?4:5] = mCell; mats[s>0?5:4] = mBlack;
+      p = mesh(new THREE.BoxGeometry(0.83, 3.245, 0.016), mats); p.position.set(0, 0, s*0.482);
+    }
+    sat.add(p);
+    [-1.605, 1.605].forEach(function(y){ [-0.395, 0.395].forEach(function(u){
+      var sc = mesh(screwGeo, mSteel);
+      if(axis === 'x'){ sc.rotation.z = Math.PI/2; sc.position.set(s*0.494, y, u); }
+      else { sc.rotation.x = Math.PI/2; sc.position.set(u, y, s*0.494); }
+      sat.add(sc);
+    }); });
+  }
+  sidePanel('x', 1); sidePanel('x', -1); sidePanel('z', 1); sidePanel('z', -1);
+
+  // +Y end: antenna deployer, GNSS patch antenna, sun sensors, tape antennas
+  var top = L/2;
+  put(sat, mesh(new THREE.BoxGeometry(0.82, 0.05, 0.82), mBlack), 0, top-0.04, 0);
+  var patch = put(sat, mesh(new THREE.BoxGeometry(0.25, 0.03, 0.25), mCeramic), 0, top+0.0, 0);
+  put(sat, mesh(new THREE.BoxGeometry(0.17, 0.006, 0.17), mGold), 0, top+0.018, 0);
+  put(sat, mesh(new THREE.CylinderGeometry(0.012,0.012,0.012,12), mSteel), 0.035, top+0.024, 0.035);
+  [[0.29,0.29],[-0.29,-0.29]].forEach(function(p){
+    put(sat, mesh(new THREE.BoxGeometry(0.075, 0.012, 0.075), mGold), p[0], top-0.009, p[1]);
+    put(sat, mesh(new THREE.BoxGeometry(0.05, 0.014, 0.05), mGlass), p[0], top-0.004, p[1]);
+  });
+  for(var k=0; k<4; k++){
+    var arm = new THREE.Group(); arm.position.y = top+0.006; arm.rotation.y = k*Math.PI/2 + Math.PI/4; sat.add(arm);
+    put(arm, mesh(new THREE.BoxGeometry(0.06, 0.012, 0.03), mWhite), 0.36, -0.01, 0);
+    put(arm, mesh(new THREE.BoxGeometry(0.1, 0.02, 0.07), mBlack), 0.58, -0.004, 0);
+    var tape = put(arm, mesh(new THREE.BoxGeometry(1.9, 0.004, 0.045), mTape), 0.6+0.95, 0.004, 0);
+    tape.rotation.z = 0.035;
+  }
+
+  // -Y end: recessed imaging payload
+  var bot = -L/2;
+  put(sat, mesh(new THREE.BoxGeometry(0.82, 0.03, 0.82), mAnod), 0, bot+0.25, 0);
+  var cam = new THREE.Group(); cam.position.y = bot+0.235; sat.add(cam);
+  put(cam, mesh(new THREE.CylinderGeometry(0.26,0.26,0.025,56), mAl), 0, 0, 0);
+  for(var b=0; b<6; b++){
+    var a = b/6*Math.PI*2;
+    put(cam, mesh(new THREE.CylinderGeometry(0.012,0.012,0.012,10), mSteel), Math.cos(a)*0.225, -0.016, Math.sin(a)*0.225);
+  }
+  put(cam, mesh(new THREE.CylinderGeometry(0.2,0.2,0.12,56), mBlack), 0, -0.07, 0);
+  put(cam, mesh(new THREE.CylinderGeometry(0.212,0.212,0.035,64), mAl), 0, -0.085, 0);
+  var bezel = put(cam, mesh(new THREE.TorusGeometry(0.162,0.022,16,64), mAnod), 0, -0.135, 0);
+  bezel.rotation.x = Math.PI/2;
+  put(cam, mesh(new THREE.CylinderGeometry(0.152,0.152,0.01,56), mGlass), 0, -0.132, 0);
+
+  // deployable solar arrays, hinged on the +Z face edges
+  [1,-1].forEach(function(s){
+    var pivot = new THREE.Group(); pivot.position.set(s*0.5, 0, 0.505); pivot.rotation.y = -s*0.16; sat.add(pivot);
+    put(pivot, mesh(new THREE.BoxGeometry(0.96, 3.3, 0.022), [mPcbEdge,mPcbEdge,mPcbEdge,mPcbEdge,mCell,mPcbBack]), s*0.51, 0, 0.011);
+    put(pivot, mesh(new THREE.CylinderGeometry(0.007,0.007,3.05,8), mSteel), s*0.012, 0, 0.011);
+    [-1.28,-0.43,0.43,1.28].forEach(function(y, i){
+      put(pivot, mesh(new THREE.CylinderGeometry(0.021,0.021,0.24,20), i%2 ? mAl : mAnod), s*0.012, y, 0.011);
+    });
+    [[-0.44,-1.625],[-0.44,1.625],[0.44,-1.625],[0.44,1.625]].forEach(function(p){
+      var sc = put(pivot, mesh(screwGeo, mSteel), s*0.51+p[0], p[1], 0.026); sc.rotation.x = Math.PI/2;
+    });
+    // hold-down and release mechanism on the outer edge
+    put(pivot, mesh(new THREE.BoxGeometry(0.05, 0.14, 0.035), mBlack), s*0.995, 0, 0.02);
+    put(pivot, mesh(new THREE.BoxGeometry(0.02, 0.05, 0.02), mGold), s*1.02, 0, 0.02);
+  });
+
+  sat.traverse(function(o){ if(o.isMesh){ o.castShadow = true; o.receiveShadow = true; } });
+  scene.add(sat);
+  sun.target = sat; key.target = sat; earthshine.target = sat;
+
+  /* ---------- Layout, motion, loop ---------- */
+  var satBase = new THREE.Vector3(2.6, 0.45, -8);
+  var baseScale = 0.55;
+  var drawSize = new THREE.Vector2();
+  function layout(){
+    var w = hero.clientWidth, h = hero.clientHeight;
+    renderer.setPixelRatio(pixelRatio);
+    renderer.setSize(w, h, false);
+    camera.aspect = w/h; camera.updateProjectionMatrix();
+    var halfH = 8*Math.tan(THREE.MathUtils.degToRad(FOV/2)), halfW = halfH*camera.aspect;
+    if(camera.aspect > 1.15){ satBase.set(Math.min(halfW*0.56, 3.6), 0.5, -8); baseScale = 0.5; }
+    else { satBase.set(halfW*0.42, -0.55, -8); baseScale = 0.32; }
+    renderer.getDrawingBufferSize(drawSize); uniforms.uRes.value.copy(drawSize);
+  }
+
+  var pointer = {x:0, y:0}, look = {x:0, y:0};
+  if(!reduce){
+    window.addEventListener('pointermove', function(e){
+      pointer.x = (e.clientX/window.innerWidth)*2-1; pointer.y = (e.clientY/window.innerHeight)*2-1;
+    }, {passive:true});
+  }
+
+  var clock = new THREE.Clock(), elapsed = 12;
+  function render(dt){
+    elapsed += dt;
+    look.x += (pointer.x-look.x)*0.04; look.y += (pointer.y-look.y)*0.04;
+    camera.position.set(look.x*0.18, -look.y*0.1, 0);
+    camera.lookAt(look.x*0.05, 0, -10);
+    camera.updateMatrixWorld();
+    uniforms.uTime.value = elapsed;
+
+    sat.scale.setScalar(baseScale);
+    sat.position.set(satBase.x, satBase.y + Math.sin(elapsed*0.35)*0.06, satBase.z);
+    sun.position.copy(sat.position).add(SUN_OFF);
+    key.position.copy(sat.position).add(KEY_OFF);
+    earthshine.position.copy(sat.position).add(EARTH_OFF);
+    sat.rotation.set(0.62 + Math.sin(elapsed*0.13)*0.06, -0.95 + Math.sin(elapsed*0.09)*0.32, 0.6 + Math.sin(elapsed*0.07)*0.05);
+
+    renderer.clear();
+    renderer.render(bgScene, bgCam);
+    renderer.clearDepth();
+    renderer.render(scene, camera);
+  }
+
+  // Drop resolution on slow GPUs.
+  var frames = 0, slowTime = 0;
+  var running = true, visible = true;
+  function loop(){
+    if(!running) return;
+    var dt = Math.min(clock.getDelta(), 0.1);
+    render(dt);
+    if(frames < 90){
+      frames++; if(frames > 30) slowTime += dt;
+      if(frames === 90 && slowTime/60 > 0.024 && pixelRatio > 1){ pixelRatio = 1; layout(); }
+    }
+    requestAnimationFrame(loop);
+  }
+  function setRunning(on){
+    if(reduce) return;
+    if(on && !running){ running = true; clock.getDelta(); requestAnimationFrame(loop); }
+    else if(!on){ running = false; }
+  }
+
+  layout();
+  if(reduce){ render(0); running = false; }
+  else { requestAnimationFrame(loop); }
+
+  if('ResizeObserver' in window){ new ResizeObserver(function(){ layout(); if(reduce) render(0); }).observe(hero); }
+  else { window.addEventListener('resize', function(){ layout(); if(reduce) render(0); }); }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){ visible = entries[0].isIntersecting; setRunning(visible && !document.hidden); }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', function(){ setRunning(visible && !document.hidden); });
+  canvas.addEventListener('webglcontextlost', function(e){ e.preventDefault(); running = false; fallback(); });
+})();
+</script>
+</body>
+</html>
