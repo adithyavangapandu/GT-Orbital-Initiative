@@ -78,7 +78,7 @@ function QuizQuestionCard({
           {question.options.map((opt) => {
             const isPicked = selected === opt.id;
             const isCorrect = opt.id === question.correctOptionId;
-            const showCorrect = answeredCorrectly || (attempted && isCorrect);
+            const showCorrect = isCorrect && (answeredCorrectly || attempted);
             return (
               <label
                 key={opt.id}
