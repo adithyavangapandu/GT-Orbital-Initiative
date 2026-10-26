@@ -52,6 +52,19 @@ describe('ProgressManager', () => {
     expect(fresh.getState().modules).toEqual({});
   });
 
+  it('two managers sharing storage do not clobber each other (cross-tab regression)', () => {
+    // Tab A and Tab B each load their own snapshot, then write in sequence.
+    const a = new ProgressManager(new LocalProgressStore());
+    const b = new ProgressManager(new LocalProgressStore());
+    a.toggleTask('m00', 'pc-m00-t1');
+    // B's in-memory state predates A's write — its write must merge, not wipe.
+    b.answerQuestion('m00', 'kc-m00-q1');
+
+    const merged = new ProgressManager(new LocalProgressStore()).getState().modules['m00'];
+    expect(merged.completedTaskIds).toContain('pc-m00-t1');
+    expect(merged.answeredQuestionIds).toContain('kc-m00-q1');
+  });
+
   it('notifies subscribers on change', () => {
     const pm = new ProgressManager(new LocalProgressStore());
     let calls = 0;

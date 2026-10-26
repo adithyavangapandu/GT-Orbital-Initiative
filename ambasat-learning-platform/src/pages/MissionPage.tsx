@@ -38,9 +38,11 @@ export function MissionPage() {
   const practicalCount = moduleStatus.filter((s) => s.pDone).length;
   const visited = moduleStatus.filter((s) => s.mp?.lastVisited);
 
+  const byRecency = (a: (typeof moduleStatus)[0], b: (typeof moduleStatus)[0]) =>
+    (b.mp!.lastVisited! > a.mp!.lastVisited! ? 1 : -1);
+  const unfinished = visited.filter((s) => !s.done);
   const currentModule =
-    moduleStatus.find((s) => s.mp?.lastVisited && !s.done) ??
-    [...visited].sort((a, b) => (b.mp!.lastVisited! > a.mp!.lastVisited! ? 1 : -1))[0];
+    [...unfinished].sort(byRecency)[0] ?? [...visited].sort(byRecency)[0];
   const nextRecommended = moduleStatus.find((s) => !s.done);
   const resumeTarget = currentModule?.module ?? nextRecommended?.module ?? modules[0];
 

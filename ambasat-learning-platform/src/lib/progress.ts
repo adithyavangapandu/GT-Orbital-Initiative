@@ -80,6 +80,17 @@ export class ProgressManager {
   constructor(store: ProgressStore) {
     this.store = store;
     this.state = store.load();
+    // Adopt writes made by other open tabs so this tab's UI and its next write
+    // are based on the latest stored state (storage events only fire in other
+    // tabs, never the writer).
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('storage', (e) => {
+        if (e.key === STORAGE_KEY) {
+          this.state = this.store.load();
+          this.listeners.forEach((l) => l());
+        }
+      });
+    }
   }
 
   getState(): ProgressState {
@@ -91,47 +102,58 @@ export class ProgressManager {
     return () => this.listeners.delete(listener);
   };
 
-  private update(next: ProgressState) {
+  // Re-base every mutation on the freshest stored state before writing, so a
+  // stale tab never clobbers another tab's progress with its old snapshot.
+  private update(mutate: (latest: ProgressState) => ProgressState) {
+    const next = mutate(this.store.load());
     this.state = next;
     this.store.save(next);
     this.listeners.forEach((l) => l());
   }
 
-  private module(id: string): ModuleProgress {
-    return this.state.modules[id] ?? emptyModuleProgress();
-  }
-
   markVisited(moduleId: string) {
-    const mp = { ...this.module(moduleId), lastVisited: new Date().toISOString() };
-    this.update({ ...this.state, modules: { ...this.state.modules, [moduleId]: mp } });
+    this.update((s) => ({
+      ...s,
+      modules: {
+        ...s.modules,
+        [moduleId]: {
+          ...(s.modules[moduleId] ?? emptyModuleProgress()),
+          lastVisited: new Date().toISOString(),
+        },
+      },
+    }));
   }
 
   answerQuestion(moduleId: string, questionId: string) {
-    const mp = this.module(moduleId);
-    if (mp.answeredQuestionIds.includes(questionId)) return;
-    this.update({
-      ...this.state,
-      modules: {
-        ...this.state.modules,
-        [moduleId]: { ...mp, answeredQuestionIds: [...mp.answeredQuestionIds, questionId] },
-      },
+    this.update((s) => {
+      const mp = s.modules[moduleId] ?? emptyModuleProgress();
+      if (mp.answeredQuestionIds.includes(questionId)) return s;
+      return {
+        ...s,
+        modules: {
+          ...s.modules,
+          [moduleId]: { ...mp, answeredQuestionIds: [...mp.answeredQuestionIds, questionId] },
+        },
+      };
     });
   }
 
   toggleTask(moduleId: string, taskId: string) {
-    const mp = this.module(moduleId);
-    const done = mp.completedTaskIds.includes(taskId);
-    this.update({
-      ...this.state,
-      modules: {
-        ...this.state.modules,
-        [moduleId]: {
-          ...mp,
-          completedTaskIds: done
-            ? mp.completedTaskIds.filter((t) => t !== taskId)
-            : [...mp.completedTaskIds, taskId],
+    this.update((s) => {
+      const mp = s.modules[moduleId] ?? emptyModuleProgress();
+      const done = mp.completedTaskIds.includes(taskId);
+      return {
+        ...s,
+        modules: {
+          ...s.modules,
+          [moduleId]: {
+            ...mp,
+            completedTaskIds: done
+              ? mp.completedTaskIds.filter((t) => t !== taskId)
+              : [...mp.completedTaskIds, taskId],
+          },
         },
-      },
+      };
     });
   }
 

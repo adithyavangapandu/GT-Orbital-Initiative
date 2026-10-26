@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import { CodeBlock } from '../ui/CodeBlock';
 
 /**
@@ -18,14 +19,31 @@ export function LessonMarkdown({ children }: { children: string }) {
         ol: (p) => <ol className="mb-4 list-decimal space-y-1.5 pl-5 text-slate-300 marker:text-accent" {...p} />,
         li: (p) => <li className="leading-relaxed" {...p} />,
         strong: (p) => <strong className="font-semibold text-slate-100" {...p} />,
-        a: (p) => (
-          <a
-            className="font-medium text-accent underline decoration-accent/40 underline-offset-2 hover:decoration-accent"
-            target={p.href?.startsWith('http') ? '_blank' : undefined}
-            rel={p.href?.startsWith('http') ? 'noreferrer' : undefined}
-            {...p}
-          />
-        ),
+        // Internal root-relative links must go through React Router so they
+        // honour the basename (e.g. /GT-Orbital-Initiative/ambasat/) on the
+        // deployed Pages site; external and fragment links stay plain anchors.
+        a: ({ href, children, ...rest }) => {
+          const className =
+            'font-medium text-accent underline decoration-accent/40 underline-offset-2 hover:decoration-accent';
+          if (href?.startsWith('/')) {
+            return (
+              <Link to={href} className={className} {...rest}>
+                {children}
+              </Link>
+            );
+          }
+          return (
+            <a
+              href={href}
+              className={className}
+              target={href?.startsWith('http') ? '_blank' : undefined}
+              rel={href?.startsWith('http') ? 'noreferrer' : undefined}
+              {...rest}
+            >
+              {children}
+            </a>
+          );
+        },
         code({ className, children, ...props }) {
           const text = String(children).replace(/\n$/, '');
           const match = /language-(\w+)/.exec(className ?? '');
