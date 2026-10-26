@@ -27,14 +27,17 @@ export const m01: LessonContent = {
   handsOn: [
     {
       title: 'Unbox and inventory',
+      domain: 'hardware',
       body: 'Lay out the box contents and match each item to the manual\'s list on p.5. Keep the anti-static packaging — the manual recommends it for transporting your satellite later.',
     },
     {
       title: 'Locate the big three',
+      domain: 'hardware',
       body: 'On the motherboard, find the MCU, the tri-axis IMU and the LoRaWAN transceiver. Also find the onboard LED — it becomes your first test signal.',
     },
     {
       title: 'Find the programming-pin pads',
+      domain: 'hardware',
       body: 'Locate the six labelled pads (GND, SS, VIN, RX, TX, DTR) — this is where the temporary pins go in Module 04, and where the programmer and battery pack connect.',
       manualReference: 'Manual p.15',
     },

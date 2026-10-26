@@ -6,6 +6,8 @@ const styles: Record<string, string> = {
   warning: 'border-amber-400/40 bg-amber-400/10 text-amber-300',
   muted: 'border-slate-600/60 bg-slate-800/60 text-slate-400',
   gold: 'border-gold/40 bg-gold/10 text-gold',
+  hardware: 'border-orange-400/40 bg-orange-400/10 text-orange-300',
+  software: 'border-violet-400/40 bg-violet-400/10 text-violet-300',
 };
 
 export function StatusChip({

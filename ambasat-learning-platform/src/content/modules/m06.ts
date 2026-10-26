@@ -31,11 +31,13 @@ export const m06: LessonContent = {
   handsOn: [
     {
       title: 'Run the sensor test sketch',
+      domain: 'software',
       body: 'Build and upload your sensor\'s test sketch (manual Step 5, pp. 26–28), open the serial monitor, and confirm live readings.',
       manualReference: 'Manual pp. 26–28',
     },
     {
       title: 'Perturb and verify',
+      domain: 'hardware',
       body: 'Deliberately change the physical stimulus (light, temperature, breath, motion) and confirm the reading moves in the expected direction. Record one example before/after pair.',
     },
     {

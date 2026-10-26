@@ -35,14 +35,17 @@ export const m03: LessonContent = {
   handsOn: [
     {
       title: 'Audit your bench',
+      domain: 'hardware',
       body: 'Run the manual\'s eight-point checklist (pp. 10–11) against your actual workspace. Photograph or note what fails and fix each item before proceeding.',
     },
     {
       title: 'Install the toolchain',
+      domain: 'software',
       body: 'Install VS Code and the PlatformIO plugin per manual Step 2 (p.17). Open it once and confirm the PlatformIO icon appears.',
     },
     {
       title: 'Prepare the ESD kit',
+      domain: 'hardware',
       body: 'Have the wrist strap, anti-static mat and fine solder (≤1.00 mm) physically at the bench. Confirm strap grounding per your mat\'s instructions.',
     },
   ],

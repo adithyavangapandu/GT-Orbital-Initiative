@@ -331,6 +331,11 @@ function HandsOnStepCard({ step, index }: { step: HandsOnStep; index: number }) 
       </span>
       <h4 className="font-semibold text-slate-100">
         {step.title}
+        {step.domain && (
+          <StatusChip tone={step.domain} className="ml-2 align-middle">
+            {step.domain}
+          </StatusChip>
+        )}
         {step.manualReference && (
           <span className="ml-2 font-mono text-xs font-normal text-slate-500">{step.manualReference}</span>
         )}

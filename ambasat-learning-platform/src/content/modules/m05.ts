@@ -35,16 +35,19 @@ export const m05: LessonContent = {
   handsOn: [
     {
       title: 'Wire the programmer correctly',
+      domain: 'hardware',
       body: 'Connect programmer to board per manual p.18: G–G, VCC–VIN, RXD–TX, TXD–RX, DTR–DTR (and SS per the diagram). Double-check before powering.',
       manualReference: 'Manual p.18',
     },
     {
       title: 'Build the LED test',
+      domain: 'software',
       body: 'Clone github.com/ambasat/AmbaSat-1, open the LED test sketch in VS Code + PlatformIO, and build with the tick icon.',
       manualReference: 'Manual p.17, Step 2',
     },
     {
       title: 'Upload and observe the blink',
+      domain: 'hardware',
       body: 'Press the arrow icon to upload. Confirm the onboard LED blinks. If it fails, use the troubleshooting table below *and* manual p.19 before retrying.',
       manualReference: 'Manual pp. 17–19',
     },

@@ -35,21 +35,25 @@ export const m07: LessonContent = {
   handsOn: [
     {
       title: 'Register on the AmbaSat Dashboard',
+      domain: 'software',
       body: 'Create your satellite\'s entry on the AmbaSat Dashboard (access info is on the kit\'s reading materials, manual p.5) and copy out NWKSKEY, APPSKEY and DEVADDR.',
       manualReference: 'Manual p.29',
     },
     {
       title: 'Enter the keys in main.cpp',
+      domain: 'software',
       body: 'Open the flight-code project, find `main.cpp`, and insert the three keys as 0x-prefixed byte arrays exactly as the manual shows (pp. 29–30). Double-check byte order.',
       manualReference: 'Manual pp. 29–30',
     },
     {
       title: 'Build, upload, connect power',
+      domain: 'hardware',
       body: 'Build and upload the flight code. Then either keep the programmer attached or wire the battery pack: red → VIN, black → GND (p.31).',
       manualReference: 'Manual p.31, Step 6',
     },
     {
       title: 'Walk the Telemetry Journey',
+      domain: 'software',
       body: 'Open the [Telemetry Journey lab](/lab/telemetry-journey) and click through all 11 stages. For each, say aloud which piece of *your* hardware or code it represents.',
     },
   ],

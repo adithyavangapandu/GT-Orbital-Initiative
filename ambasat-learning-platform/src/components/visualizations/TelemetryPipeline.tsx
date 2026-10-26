@@ -163,6 +163,9 @@ function PipelineRow({
                 <span className={cn('text-sm font-semibold leading-snug', active ? 'text-accent-soft' : 'text-slate-200')}>
                   {stage.title}
                 </span>
+                <StatusChip tone={stage.domain === 'both' ? 'accent' : stage.domain}>
+                  {stage.domain === 'both' ? 'HW + SW' : stage.domain}
+                </StatusChip>
                 <span className="text-xs leading-snug text-slate-500">{stage.summary}</span>
                 <span className="mt-auto font-mono text-[10px] text-slate-600">
                   stage {telemetryStages.indexOf(stage) + 1}

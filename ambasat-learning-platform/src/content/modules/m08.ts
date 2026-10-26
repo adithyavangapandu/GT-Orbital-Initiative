@@ -31,15 +31,18 @@ export const m08: LessonContent = {
   handsOn: [
     {
       title: 'Confirm packets on the dashboard',
+      domain: 'software',
       body: 'With the flight code running, open your AmbaSat Dashboard device view and confirm decoded readings arrive (manual pp. 29–32).',
       manualReference: 'Manual pp. 29–32',
     },
     {
       title: 'Cross-check one packet',
+      domain: 'software',
       body: 'In the TTN console, find one uplink raw payload and manually match its bytes to the dashboard\'s decoded values, using the flight code\'s packing order as the key.',
     },
     {
       title: 'Baseline logging session',
+      domain: 'hardware',
       body: 'Let the satellite transmit for 30–60 minutes on battery or USB. Note packet rate, any gaps, and the value ranges — this is your operations baseline for Module 09.',
     },
   ],

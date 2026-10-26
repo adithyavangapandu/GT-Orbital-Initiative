@@ -31,6 +31,7 @@ export const m09: LessonContent = {
   handsOn: [
     {
       title: 'Run the integration checklist',
+      domain: 'hardware',
       body: 'Physically inspect and re-verify each of the six checklist items on your own satellite. Photograph the result for your build log.',
     },
     {

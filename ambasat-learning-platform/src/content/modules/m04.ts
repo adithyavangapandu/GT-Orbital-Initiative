@@ -32,16 +32,19 @@ export const m04: LessonContent = {
   handsOn: [
     {
       title: 'Cut the antenna to spec',
+      domain: 'hardware',
       body: 'Strip the antenna wire and cut to your region\'s length (EU: 86.8 mm / 868 MHz, US: 91.5 mm / 915 MHz, others per manual pp. 12–14). Solder to the gold pad with minimal solder.',
       manualReference: 'Manual pp. 12–14, Step 1',
     },
     {
       title: 'Fit the six programming pins',
+      domain: 'hardware',
       body: 'Push the six pins into the labelled holes (GND, SS, VIN, RX, TX, DTR). Leave unsoldered for prototyping or solder lightly to secure — remember they are temporary.',
       manualReference: 'Manual pp. 15–16',
     },
     {
       title: 'Mount the sensor daughterboard',
+      domain: 'hardware',
       body: 'Position the sensor on the rear face as shown in the manual, solder the castellated edges flush, and complete the required pad joins for your sensor type.',
       manualReference: 'Manual pp. 20–25, Step 4',
     },

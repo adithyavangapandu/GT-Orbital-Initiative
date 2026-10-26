@@ -77,10 +77,14 @@ export interface InteractivePlaceholder {
   visualizationType: string;
 }
 
+export type StepDomain = 'hardware' | 'software';
+
 export interface HandsOnStep {
   title: string;
   /** Markdown body. */
   body: string;
+  /** Whether the step is a bench/hardware task or a computer/software task. */
+  domain?: StepDomain;
   warning?: string;
   code?: { language: string; code: string; caption?: string };
   manualReference?: string;
@@ -187,9 +191,13 @@ export interface Lab {
 
 export type TelemetryPhase = 'deploy' | 'runtime';
 
+/** Which side of the system a stage lives on. */
+export type StageDomain = 'hardware' | 'software' | 'both';
+
 export interface TelemetryStage {
   id: string;
   phase: TelemetryPhase;
+  domain: StageDomain;
   title: string;
   summary: string;
   detail: string;

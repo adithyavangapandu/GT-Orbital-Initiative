@@ -11,6 +11,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'source-code',
     phase: 'deploy',
+    domain: 'software',
     title: 'Source Code',
     summary: 'C/C++ firmware — example workspaces or your own edits.',
     detail:
@@ -25,6 +26,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'compile',
     phase: 'deploy',
+    domain: 'software',
     title: 'Compile & Build',
     summary: 'PlatformIO compiles the workspace into a firmware image.',
     detail:
@@ -39,6 +41,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'upload',
     phase: 'deploy',
+    domain: 'both',
     title: 'Upload via Programmer',
     summary: 'The CH340/FTDI programmer copies firmware over USB to the board.',
     detail:
@@ -53,6 +56,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'execute',
     phase: 'runtime',
+    domain: 'both',
     title: 'MCU Executes Firmware',
     summary: 'On power-up the microcontroller runs your program loop.',
     detail:
@@ -67,6 +71,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'request',
     phase: 'runtime',
+    domain: 'both',
     title: 'MCU Requests Reading',
     summary: 'Firmware polls the sensor daughterboard for a measurement.',
     detail:
@@ -81,6 +86,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'sense',
     phase: 'runtime',
+    domain: 'hardware',
     title: 'Sensor Returns Measurement',
     summary: 'The sensor responds with real environmental data.',
     detail:
@@ -95,6 +101,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'package',
     phase: 'runtime',
+    domain: 'software',
     title: 'Firmware Packages Telemetry',
     summary: 'Readings are formatted into a LoRaWAN packet for your device.',
     detail:
@@ -109,6 +116,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'transmit',
     phase: 'runtime',
+    domain: 'both',
     title: 'Transceiver Transmits',
     summary: 'The LoRaWAN chip radiates the packet through the wire antenna.',
     detail:
@@ -123,6 +131,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'gateway',
     phase: 'runtime',
+    domain: 'hardware',
     title: 'Gateway Receives',
     summary: 'A nearby TTN gateway hears the packet over the air.',
     detail:
@@ -137,6 +146,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'route',
     phase: 'runtime',
+    domain: 'software',
     title: 'Network Routes Data',
     summary: 'TTN forwards the packet to the application owning your device.',
     detail:
@@ -151,6 +161,7 @@ export const telemetryStages: TelemetryStage[] = [
   {
     id: 'dashboard',
     phase: 'runtime',
+    domain: 'software',
     title: 'Dashboard Displays Data',
     summary: 'Your AmbaSat Dashboard shows the measurement — mission data!',
     detail:
