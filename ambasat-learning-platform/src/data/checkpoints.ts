@@ -1,0 +1,577 @@
+import type { Checkpoint } from '../types';
+
+/**
+ * One knowledge checkpoint (quiz) and one practical checkpoint (checklist)
+ * per module. Quiz answers are grounded in the MK-II manual.
+ */
+export const checkpoints: Checkpoint[] = [
+  {
+    id: 'kc-m00',
+    moduleId: 'm00',
+    type: 'knowledge',
+    title: 'Mission Briefing Check',
+    questions: [
+      {
+        id: 'kc-m00-q1',
+        prompt: 'What class of satellite is the AmbaSat-1?',
+        options: [
+          { id: 'a', text: 'A CubeSat (1U)' },
+          { id: 'b', text: 'A "Sprite" class satellite, also called a chipsat' },
+          { id: 'c', text: 'A geostationary communications satellite' },
+          { id: 'd', text: 'A sounding rocket payload' },
+        ],
+        correctOptionId: 'b',
+        explanation:
+          'The manual introduces AmbaSat-1 as a "Sprite" class satellite — a chipsat about 35 mm², far smaller than a CubeSat. (Manual p.3)',
+      },
+      {
+        id: 'kc-m00-q2',
+        prompt: 'Completing this educational kit means your satellite is…',
+        options: [
+          { id: 'a', text: 'Automatically qualified and ready for launch' },
+          { id: 'b', text: 'Legally certified for orbit by the UKSA' },
+          { id: 'c', text: 'A working educational satellite — launch qualification involves further professional checks by the launch provider/AmbaSat engineers' },
+          { id: 'd', text: 'Only usable as a desk ornament' },
+        ],
+        correctOptionId: 'c',
+        explanation:
+          'The kit teaches real satellite engineering, but the manual itself shows launch-path steps done by AmbaSat engineers (frequency setting, antenna, pin removal, solar board checks). Building the kit does not by itself qualify it for launch.',
+      },
+      {
+        id: 'kc-m00-q3',
+        prompt: 'Roughly how many AmbaSat-1 sprites fit in one 3U launch container, and to what orbit are they deployed?',
+        options: [
+          { id: 'a', text: 'One satellite per container, to geostationary orbit' },
+          { id: 'b', text: 'About 200 sprites, deployed to a ~310 km Low Earth Orbit' },
+          { id: 'c', text: 'About 20 sprites, deployed to the Moon' },
+          { id: 'd', text: 'About 2,000 sprites, deployed to medium Earth orbit' },
+        ],
+        correctOptionId: 'b',
+        explanation:
+          'The manual states roughly 200 sprites fit in the 3U launch container, which deploys them into a ~310 km LEO. (Manual p.4)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m00',
+    moduleId: 'm00',
+    type: 'practical',
+    title: 'Mission Setup Checklist',
+    tasks: [
+      { id: 't1', label: 'Read the manual’s introduction and note the three main board components' },
+      { id: 't2', label: 'Choose which of the eight sensor options fits your mission idea' },
+      { id: 't3', label: 'Write down your personal mission objective for this course' },
+      { id: 't4', label: 'Create an account/be ready to log in to the AmbaSat Dashboard (credentials arrive with the kit)' },
+    ],
+  },
+  {
+    id: 'kc-m01',
+    moduleId: 'm01',
+    type: 'knowledge',
+    title: 'Board Anatomy Check',
+    questions: [
+      {
+        id: 'kc-m01-q1',
+        prompt: 'Which component runs the code you upload to the satellite?',
+        options: [
+          { id: 'a', text: 'The LoRaWAN transceiver' },
+          { id: 'b', text: 'The CH340 programmer' },
+          { id: 'c', text: 'The Microcontroller Unit (MCU)' },
+          { id: 'd', text: 'The solar board' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'The manual calls the MCU "the brains of your Satellite" — the processor where code is uploaded and run. (Manual p.4)',
+      },
+      {
+        id: 'kc-m01-q2',
+        prompt: 'Which of these is NOT in the MK-II box?',
+        options: [
+          { id: 'a', text: 'CH340 programmer' },
+          { id: 'b', text: 'A soldering iron' },
+          { id: 'c', text: 'A solar board & solar panels' },
+          { id: 'd', text: 'A battery holder' },
+        ],
+        correctOptionId: 'b',
+        explanation:
+          'The kit ships the PCB, programmer, sensor, solar board, battery holder, sticker, reading materials, launch certificate and a bag of components — tools like the soldering iron are items you supply. (Manual p.5)',
+      },
+      {
+        id: 'kc-m01-q3',
+        prompt: 'The tri-axis SMD on the motherboard combines which sensors?',
+        options: [
+          { id: 'a', text: 'Thermometer, barometer, hygrometer' },
+          { id: 'b', text: 'Camera, microphone, GPS' },
+          { id: 'c', text: 'UV, CO₂ and ambient light sensors' },
+          { id: 'd', text: 'Gyroscope, accelerometer and magnetometer' },
+        ],
+        correctOptionId: 'd',
+        explanation: 'The manual lists a tri-axis gyroscope + accelerometer + magnetometer used for trajectory and power-saving tasks. (Manual p.4)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m01',
+    moduleId: 'm01',
+    type: 'practical',
+    title: 'Unboxing Verification',
+    tasks: [
+      { id: 't1', label: 'Lay out and identify every item in the MK-II box against the manual list' },
+      { id: 't2', label: 'Locate the MCU, IMU, transceiver and LED on the motherboard' },
+      { id: 't3', label: 'Find the six programming-pin pads (GND, SS, VIN, RX, TX, DTR)' },
+      { id: 't4', label: 'Confirm which of the eight sensors shipped with your kit' },
+    ],
+  },
+  {
+    id: 'kc-m02',
+    moduleId: 'm02',
+    type: 'knowledge',
+    title: 'Design Tradeoffs Check',
+    questions: [
+      {
+        id: 'kc-m02-q1',
+        prompt: 'Why does the manual insist on a flush solder finish on the rear of the PCB?',
+        options: [
+          { id: 'a', text: 'It looks neater in photos' },
+          { id: 'b', text: 'The solar board mounts on the rear — gaps would let its cells flex and break inside the 3U container' },
+          { id: 'c', text: 'Flush solder conducts heat better' },
+          { id: 'd', text: 'It is purely cosmetic' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'The solar board mounts to the rear; space inside the 3U launch container is so tight that "every millimetre counts". (Manual p.20)',
+      },
+      {
+        id: 'kc-m02-q2',
+        prompt: 'Why does the MK-II ship with delicate components pre-soldered?',
+        options: [
+          { id: 'a', text: 'To make the kit more expensive' },
+          { id: 'b', text: 'To remove all engineering challenge' },
+          { id: 'c', text: 'To reduce assembly time by hours and make the build accessible to more people' },
+          { id: 'd', text: 'Because the parts do not work otherwise' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'Pre-soldered SMD parts cut assembly time and make the build more accessible versus the MK-I "Engineering Kit". (Manual p.5)',
+      },
+      {
+        id: 'kc-m02-q3',
+        prompt: 'Why is a ~310 km Low Earth Orbit used for AmbaSat-1 deployments, per the manual?',
+        options: [
+          { id: 'a', text: 'It is the cheapest possible orbit' },
+          { id: 'b', text: 'Atmospheric data is collected reliably in the thermosphere while mission length stays suitable for academic projects' },
+          { id: 'c', text: 'It avoids all radio regulation' },
+          { id: 'd', text: '310 km is the only orbit TTN gateways can reach' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'Deploying into the thermosphere gives reliable atmospheric data and a mission duration suited to academic timescales. (Manual p.4)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m02',
+    moduleId: 'm02',
+    type: 'practical',
+    title: 'Tradeoff Review',
+    tasks: [
+      { id: 't1', label: 'Write one paragraph comparing AmbaSat-1 (sprite) to a CubeSat for a student team' },
+      { id: 't2', label: 'Sketch or describe where the solar board, sensor and antenna sit on the PCB' },
+      { id: 't3', label: 'List three design constraints the 3U container imposes on the build' },
+    ],
+  },
+  {
+    id: 'kc-m03',
+    moduleId: 'm03',
+    type: 'knowledge',
+    title: 'Workstation Safety Check',
+    questions: [
+      {
+        id: 'kc-m03-q1',
+        prompt: 'Why does the manual recommend an anti-static mat or grounding band?',
+        options: [
+          { id: 'a', text: 'To keep the desk tidy' },
+          { id: 'b', text: 'To protect the iron from rust' },
+          { id: 'c', text: 'Static discharge can permanently damage ("fry") sensitive board components' },
+          { id: 'd', text: 'It is required by law' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'Even nylon socks on carpet can build enough charge to damage components — grounding yourself discharges it safely. (Manual p.9)',
+      },
+      {
+        id: 'kc-m03-q2',
+        prompt: 'Which software stack does the manual use for firmware work?',
+        options: [
+          { id: 'a', text: 'Visual Studio Code with the PlatformIO extension' },
+          { id: 'b', text: 'Only the Arduino IDE' },
+          { id: 'c', text: 'MATLAB' },
+          { id: 'd', text: 'A custom AmbaSat IDE' },
+        ],
+        correctOptionId: 'a',
+        explanation: 'The guide uses VS Code + the PlatformIO IDE extension; the board is also Arduino-compatible but that is not the documented path. (Manual p.11)',
+      },
+      {
+        id: 'kc-m03-q3',
+        prompt: 'Where do you get the AmbaSat-1 source code?',
+        options: [
+          { id: 'a', text: 'It ships on a USB stick' },
+          { id: 'b', text: 'From github.com/ambasat/AmbaSat-1 (Code → Download ZIP)' },
+          { id: 'c', text: 'Email support@ambasat.com' },
+          { id: 'd', text: 'From the TTN console' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'The project is open source — download the ZIP from the AmbaSat-1 GitHub repository. (Manual p.11)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m03',
+    moduleId: 'm03',
+    type: 'practical',
+    title: 'Station Readiness Checklist',
+    tasks: [
+      { id: 't1', label: 'Gather essential tools: soldering iron/station, solder, tweezers, snips, computer' },
+      { id: 't2', label: 'Set up ventilation (open window or fume extraction)' },
+      { id: 't3', label: 'Ground yourself — anti-static mat/band or discharge on metal before touching parts' },
+      { id: 't4', label: 'Install VS Code + PlatformIO IDE extension' },
+      { id: 't5', label: 'Download and unzip the AmbaSat-1 source code (e.g. to C:/ambasat)' },
+      { id: 't6', label: 'Install the CH340 driver if you are on Windows' },
+    ],
+  },
+  {
+    id: 'kc-m04',
+    moduleId: 'm04',
+    type: 'knowledge',
+    title: 'Assembly Knowledge Check',
+    questions: [
+      {
+        id: 'kc-m04-q1',
+        prompt: 'Why must the antenna be attached BEFORE any powered test?',
+        options: [
+          { id: 'a', text: 'It improves Wi-Fi reception' },
+          { id: 'b', text: 'Powering the board with no antenna can apply power beyond safe limits and fry the transceiver chip' },
+          { id: 'c', text: 'It holds the board together' },
+          { id: 'd', text: 'No reason — it is just tradition' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'With no antenna to radiate into, transmitted energy is reflected back and can destroy the chip. (Manual p.12)',
+      },
+      {
+        id: 'kc-m04-q2',
+        prompt: 'For the US frequency plan (915 MHz base), what antenna length does the manual specify?',
+        options: [
+          { id: 'a', text: '86.8 mm' },
+          { id: 'b', text: '915 mm' },
+          { id: 'c', text: '91.5 mm' },
+          { id: 'd', text: 'Any length is fine' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'Antenna length matches the regional base frequency: 86.8 mm @ 868 MHz (EU), 91.5 mm @ 915 MHz (US). (Manual p.12)',
+      },
+      {
+        id: 'kc-m04-q3',
+        prompt: 'The six programming pins are…',
+        options: [
+          { id: 'a', text: 'Permanent structural parts' },
+          { id: 'b', text: 'Temporary — soldered lightly and removed before launch / before the solar board is attached' },
+          { id: 'c', text: 'Used to mount the solar board' },
+          { id: 'd', text: 'Only decorative' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'The pins are temporary access for programming/testing and are removed before launch — hence light soldering. (Manual p.15)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m04',
+    moduleId: 'm04',
+    type: 'practical',
+    title: 'Build Sign-off Checklist',
+    tasks: [
+      { id: 't1', label: 'Antenna stripped ~2 mm, soldered to its pad, and trimmed to your regional length' },
+      { id: 't2', label: 'No solder bridges near the transceiver pads (visual + multimeter check)' },
+      { id: 't3', label: 'Six programming pins tacked in place: GND, SS, VIN, RX, TX, DTR' },
+      { id: 't4', label: 'Sensor daughterboard taped, pinned and soldered — flush on the rear' },
+      { id: 't5', label: 'Gentle tug-test: antenna and sensor joints are mechanically sound' },
+    ],
+  },
+  {
+    id: 'kc-m05',
+    moduleId: 'm05',
+    type: 'knowledge',
+    title: 'Firmware Basics Check',
+    questions: [
+      {
+        id: 'kc-m05-q1',
+        prompt: 'In VS Code + PlatformIO, which buttons build and upload firmware?',
+        options: [
+          { id: 'a', text: 'The play button and the stop button' },
+          { id: 'b', text: 'F5 and F6' },
+          { id: 'c', text: 'The tick (build) and the arrow (upload) on the bottom bar' },
+          { id: 'd', text: 'Ctrl+S twice' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'The small tick compiles the workspace; the adjacent arrow copies the build to the board. (Manual p.17)',
+      },
+      {
+        id: 'kc-m05-q2',
+        prompt: 'What does the blinking green onboard LED prove?',
+        options: [
+          { id: 'a', text: 'Nothing — it always blinks' },
+          { id: 'b', text: 'The sensor is calibrated' },
+          { id: 'c', text: 'The radio is transmitting' },
+          { id: 'd', text: 'The board accepts programming and power is flowing correctly through the circuitry' },
+        ],
+        correctOptionId: 'd',
+        explanation: 'The LED test is the first hardware verification: code uploads and power distribution both work. (Manual p.18)',
+      },
+      {
+        id: 'kc-m05-q3',
+        prompt: 'You get "avrdude: stk500_recv(): programmer not responding". What should you check first?',
+        options: [
+          { id: 'a', text: 'That the antenna is exactly 91.5 mm' },
+          { id: 'b', text: 'Programmer wires fully connected, correct pin pairing (e.g. RXD→TX), and that the pin joints are properly soldered' },
+          { id: 'c', text: 'The phase of the moon' },
+          { id: 'd', text: 'That the solar board is attached' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'The manual lists loose wires, wrong pin connections and weak pin solder joints as the causes. (Manual p.19)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m05',
+    moduleId: 'm05',
+    type: 'practical',
+    title: 'First Upload Checklist',
+    tasks: [
+      { id: 't1', label: 'Opened the AmbaSat-LED workspace from Source > Examples' },
+      { id: 't2', label: 'Built the workspace and saw the green SUCCESS message' },
+      { id: 't3', label: 'Wired programmer↔PCB correctly (G–G, VCC–VIN, RXD–TX, TXD–RX, DTR–DTR)' },
+      { id: 't4', label: 'Uploaded the build and observed the onboard LED blinking' },
+      { id: 't5', label: 'Resolved any upload-port or stk500 errors using the manual’s fixes' },
+    ],
+  },
+  {
+    id: 'kc-m06',
+    moduleId: 'm06',
+    type: 'knowledge',
+    title: 'Sensor Operations Check',
+    questions: [
+      {
+        id: 'kc-m06-q1',
+        prompt: 'Which sensor is explicitly earthbound-only?',
+        options: [
+          { id: 'a', text: 'Sensor 03 — Gas & Pressure' },
+          { id: 'b', text: 'Sensor 08 — GPS' },
+          { id: 'c', text: 'Sensor 06 — UV' },
+          { id: 'd', text: 'Sensor 01 — Humidity & Temperature' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'GPS (Sensor 08) is marked "Earthbound only" in the manual’s sensor list. (Manual p.3)',
+      },
+      {
+        id: 'kc-m06-q2',
+        prompt: 'After uploading your sensor’s example workspace, where do you watch live readings?',
+        options: [
+          { id: 'a', text: 'The AmbaSat Dashboard immediately' },
+          { id: 'b', text: 'On the LED colour' },
+          { id: 'c', text: 'In the serial terminal — the plug-shaped icon on the VS Code bottom bar' },
+          { id: 'd', text: 'In the GitHub repository' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'The terminal icon on the VS Code bottom bar shows the data the sensor is picking up. (Manual p.27)',
+      },
+      {
+        id: 'kc-m06-q3',
+        prompt: 'Why does uploading a new workspace stop the LED blinking?',
+        options: [
+          { id: 'a', text: 'The LED broke' },
+          { id: 'b', text: 'The board has limited memory — a newly uploaded program replaces the previous one' },
+          { id: 'c', text: 'The sensor disabled it' },
+          { id: 'd', text: 'The battery died' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'Only one program runs at a time; the sensor build replaces the LED example. (Manual p.27)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m06',
+    moduleId: 'm06',
+    type: 'practical',
+    title: 'Sensor Verification Checklist',
+    tasks: [
+      { id: 't1', label: 'Opened the example workspace matching your chosen sensor' },
+      { id: 't2', label: 'Built and uploaded it via the programmer' },
+      { id: 't3', label: 'Opened the serial terminal and confirmed live, plausible sensor readings' },
+      { id: 't4', label: 'Recorded a few readings for your mission log' },
+    ],
+  },
+  {
+    id: 'kc-m07',
+    moduleId: 'm07',
+    type: 'knowledge',
+    title: 'LoRaWAN & TTN Check',
+    questions: [
+      {
+        id: 'kc-m07-q1',
+        prompt: 'What does LoRaWAN stand for, and why is it a good fit?',
+        options: [
+          { id: 'a', text: 'Local Radio Wide Antenna Network — cheap antennas' },
+          { id: 'b', text: 'Long Range Wide Area Network — sub-GHz links proven over 700 km line-of-sight, enough for a 310 km orbit' },
+          { id: 'c', text: 'Low Rate Wi-Fi Access Node — high bandwidth' },
+          { id: 'd', text: 'Linked Orbital Radio WAN — satellite-only' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'LoRaWAN’s proven 700 km+ line-of-sight range comfortably covers the ~310 km LEO target. (Manual p.29)',
+      },
+      {
+        id: 'kc-m07-q2',
+        prompt: 'What is The Things Network (TTN)?',
+        options: [
+          { id: 'a', text: 'A paid satellite phone provider' },
+          { id: 'b', text: 'NASA’s deep space network' },
+          { id: 'c', text: 'A non-profit, community-run network of 16,000+ LoRaWAN gateways that route device data to applications' },
+          { id: 'd', text: 'An online satellite store' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'TTN is a free, decentralised community network — volunteers host gateways worldwide, so no specialist receiver hardware is needed. (Manual p.29)',
+      },
+      {
+        id: 'kc-m07-q3',
+        prompt: 'Which three values from the AmbaSat Dashboard go into your flight code’s main.cpp?',
+        options: [
+          { id: 'a', text: 'Wi-Fi SSID, password, port' },
+          { id: 'b', text: 'Serial number, MAC address, IMEI' },
+          { id: 'c', text: 'API token, client ID, client secret' },
+          { id: 'd', text: 'NWKSKEY (network session key), APPSKEY (application session key), DEVADDR (device address)' },
+        ],
+        correctOptionId: 'd',
+        explanation: 'These TTN/LoRaWAN credentials identify your device so its data is routed to your dashboard. (Manual pp.29–31)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m07',
+    moduleId: 'm07',
+    type: 'practical',
+    title: 'Radio Configuration Checklist',
+    tasks: [
+      { id: 't1', label: 'Logged in to the AmbaSat Dashboard and located NWKSKEY, APPSKEY, DEVADDR in settings' },
+      { id: 't2', label: 'Opened the flight-code workspace for your sensor and found the key fields in main.cpp' },
+      { id: 't3', label: 'Entered your keys byte-by-byte (0x-prefixed) and double-checked them' },
+      { id: 't4', label: 'Rebuilt and uploaded the flight firmware successfully' },
+    ],
+  },
+  {
+    id: 'kc-m08',
+    moduleId: 'm08',
+    type: 'knowledge',
+    title: 'End-to-End Pipeline Check',
+    questions: [
+      {
+        id: 'kc-m08-q1',
+        prompt: 'For untethered ground testing, how do you power the satellite?',
+        options: [
+          { id: 'a', text: 'Keep the USB programmer attached forever' },
+          { id: 'b', text: 'Battery holder — red wire to VIN, black wire to GND' },
+          { id: 'c', text: 'Any phone charger' },
+          { id: 'd', text: 'It cannot run untethered' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'After uploading flight code, disconnect the programmer and connect the battery pack red→VIN, black→GND. (Manual p.32)',
+      },
+      {
+        id: 'kc-m08-q2',
+        prompt: 'In the telemetry chain, what sits between the transceiver and the dashboard?',
+        options: [
+          { id: 'a', text: 'Nothing — they connect directly' },
+          { id: 'b', text: 'Bluetooth' },
+          { id: 'c', text: 'A TTN gateway receives the packet and the network routes it to your application/dashboard' },
+          { id: 'd', text: 'A second satellite relays it' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'The Things Network gateways receive LoRaWAN packets and route them to the AmbaSat Dashboard application. (Manual pp.29–32)',
+      },
+      {
+        id: 'kc-m08-q3',
+        prompt: 'Where is the dashboard viewed?',
+        options: [
+          { id: 'a', text: 'Only on the satellite itself' },
+          { id: 'b', text: 'Any web browser — the dashboard login arrives by email after the kit ships' },
+          { id: 'c', text: 'Only inside VS Code' },
+          { id: 'd', text: 'On the TTN forum' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'The kit ships with dashboard access materials; it is viewable from any internet-connected browser. (Manual p.6)',
+      },
+    ],
+  },
+  {
+    id: 'pc-m08',
+    moduleId: 'm08',
+    type: 'practical',
+    title: 'First Contact Checklist',
+    tasks: [
+      { id: 't1', label: 'Disconnected the programmer after the flight-code upload' },
+      { id: 't2', label: 'Connected the battery holder (red→VIN, black→GND)' },
+      { id: 't3', label: 'Logged in to the AmbaSat Dashboard and confirmed packets arriving' },
+      { id: 't4', label: 'Noted the time, sensor values and signal of your first received packet' },
+    ],
+  },
+  {
+    id: 'kc-m09',
+    moduleId: 'm09',
+    type: 'knowledge',
+    title: 'Mission Review Check',
+    questions: [
+      {
+        id: 'kc-m09-q1',
+        prompt: 'Before a real launch via AmbaSat’s launch program, what happens to your kit?',
+        options: [
+          { id: 'a', text: 'Nothing — you mail it straight to the rocket' },
+          { id: 'b', text: 'AmbaSat engineers set the European frequency plan (UKSA), handle the antenna, remove the programming pins and recommend checking the solar board' },
+          { id: 'c', text: 'You desolder the transceiver' },
+          { id: 'd', text: 'The kit is replaced with a new one' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'The manual describes launch-path preparation done by AmbaSat: EU frequency per UKSA, antenna replacement as needed, pin removal, solar board final checks. (Manual pp.6, 14–15)',
+      },
+      {
+        id: 'kc-m09-q2',
+        prompt: 'Which is a sound first move when an upload or build fails?',
+        options: [
+          { id: 'a', text: 'Buy a new kit' },
+          { id: 'b', text: 'Ignore it and keep soldering' },
+          { id: 'c', text: 'Re-read the manual’s fault-finding notes — check connections, re-seat wires, and try turning it off and on again' },
+          { id: 'd', text: 'Solder more pins' },
+        ],
+        correctOptionId: 'c',
+        explanation: 'The manual’s error section recommends checking wiring/connections first (and even quotes "have you tried turning it off and on again?"). (Manual p.19)',
+      },
+      {
+        id: 'kc-m09-q3',
+        prompt: 'A completed, tested MK-II kit is best described as…',
+        options: [
+          { id: 'a', text: 'Flight-certified hardware' },
+          { id: 'b', text: 'A fully functional educational satellite — proven on the ground, with professional checks still ahead of any launch' },
+          { id: 'c', text: 'A finished product needing no review' },
+          { id: 'd', text: 'Scrap parts' },
+        ],
+        correctOptionId: 'b',
+        explanation: 'Ground-test success is real, but the launch path has its own professional preparation steps; completing the kit is the start of the journey, not certification.',
+      },
+    ],
+  },
+  {
+    id: 'pc-m09',
+    moduleId: 'm09',
+    type: 'practical',
+    title: 'Final Demonstration Checklist',
+    tasks: [
+      { id: 't1', label: 'Re-verified: antenna secure, no shorts, sensor soldered flush, joints clean' },
+      { id: 't2', label: 'Demonstrated live sensor → dashboard telemetry to a mentor or teammate' },
+      { id: 't3', label: 'Wrote a short mission review: what worked, what failed, what you would change' },
+      { id: 't4', label: 'Noted the launch-prep steps still performed by AmbaSat (pins, solar board, frequency)' },
+    ],
+  },
+];
+
+export const getCheckpoint = (id?: string) => checkpoints.find((c) => c.id === id);
