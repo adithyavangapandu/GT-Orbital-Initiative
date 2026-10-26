@@ -1,0 +1,11 @@
+# Netlify deployment configuration (static SPA, no backend required).
+# Cloudflare Pages: build command "npm run build", output directory "dist",
+# and the public/_redirects file provides the same SPA fallback.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
