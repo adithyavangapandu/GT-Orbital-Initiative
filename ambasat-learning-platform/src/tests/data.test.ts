@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { articles } from '../data/articles';
-import { boardConnections, boardParts, busInfo, getBoardPart } from '../data/board';
+import { boardConnections, boardPartForComponent, boardParts, busInfo, getBoardPart } from '../data/board';
 import { getCheckpoint } from '../data/checkpoints';
 import { components } from '../data/components';
 import { glossary } from '../data/glossary';
@@ -87,6 +87,12 @@ describe('content data consistency (no dangling links)', () => {
       expect(getBoardPart(c.from), `${c.id}.from`).toBeTruthy();
       expect(getBoardPart(c.to), `${c.id}.to`).toBeTruthy();
       expect(busInfo[c.bus], c.id).toBeTruthy();
+    }
+  });
+
+  it('every component maps to its own board-map part', () => {
+    for (const c of components) {
+      expect(boardPartForComponent(c.slug)?.componentSlug, c.slug).toBe(c.slug);
     }
   });
 });

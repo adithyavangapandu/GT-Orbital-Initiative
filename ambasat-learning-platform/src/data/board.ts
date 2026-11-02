@@ -393,9 +393,24 @@ export const boardConnections: BoardConnection[] = [
 
 export const getBoardPart = (id: string) => boardParts.find((p) => p.id === id);
 
-export const boardPartForComponent = (componentSlug: string) =>
-  boardParts.find((p) => p.componentSlug === componentSlug && p.location === 'on-board') ??
-  boardParts.find((p) => p.componentSlug === componentSlug);
+/** The board-map part that best represents each Component Explorer entry. */
+const componentPart: Record<string, string> = {
+  pcb: 'pcb',
+  microcontroller: 'mcu',
+  imu: 'imu',
+  transceiver: 'radio',
+  antenna: 'antenna',
+  'sensor-daughterboard': 'sensor',
+  programmer: 'programmer',
+  'programming-pins': 'prog-header',
+  'solar-board': 'solar',
+  'battery-holder': 'battery',
+};
+
+export const boardPartForComponent = (componentSlug: string) => {
+  const id = componentPart[componentSlug];
+  return id ? getBoardPart(id) : undefined;
+};
 
 export const connectionsFor = (partId: string) =>
   boardConnections.filter((c) => c.from === partId || c.to === partId);
