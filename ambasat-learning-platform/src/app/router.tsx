@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppLayout } from '../components/layout/AppLayout';
 import { AboutPage } from '../pages/AboutPage';
 import { ArticlePage } from '../pages/ArticlePage';
+import { BoardMapPage } from '../pages/BoardMapPage';
 import { ComponentDetailPage } from '../pages/ComponentDetailPage';
 import { ComponentExplorerPage } from '../pages/ComponentExplorerPage';
 import { CurriculumPage } from '../pages/CurriculumPage';
@@ -28,6 +29,7 @@ export const router = createBrowserRouter(
         { path: '/learn/:articleSlug', element: <ArticlePage /> },
         { path: '/curriculum', element: <CurriculumPage /> },
         { path: '/curriculum/:moduleSlug', element: <ModulePage /> },
+        { path: '/explore/board', element: <BoardMapPage /> },
         { path: '/explore/components', element: <ComponentExplorerPage /> },
         { path: '/explore/components/:componentSlug', element: <ComponentDetailPage /> },
         { path: '/lab', element: <LabPage /> },

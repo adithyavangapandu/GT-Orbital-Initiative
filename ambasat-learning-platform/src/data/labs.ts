@@ -7,11 +7,11 @@ export const labs: Lab[] = [
     number: 'LAB 1',
     title: 'Satellite Anatomy Explorer',
     description:
-      'A clickable model of the AmbaSat-1 board: hover and select the MCU, IMU, transceiver, antenna, sensor and power sections to see what each does and how they connect.',
+      'A clickable model of the AmbaSat-1 board: select the microcontroller, IMU, transceiver, antenna, sensor and power parts to see what each does and how they connect.',
     plannedInteractivity:
-      'Interactive board diagram with selectable regions, subsystem descriptions, and links into the Component Explorer.',
+      'Interactive board diagram (live now) — future: layer-by-layer assembly animation and real board photography.',
     associatedModules: ['meet-the-ambasat', 'engineering-tradeoffs'],
-    status: 'coming-soon',
+    status: 'interactive',
     visualizationType: 'interactive-board-diagram',
   },
   {

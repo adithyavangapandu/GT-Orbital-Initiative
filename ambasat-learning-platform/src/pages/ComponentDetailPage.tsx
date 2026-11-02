@@ -1,4 +1,6 @@
+import { CircuitBoard } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
+import { boardPartForComponent } from '../data/board';
 import { getComponent } from '../data/components';
 import { getModule } from '../data/modules';
 import { Breadcrumbs } from '../components/layout/Breadcrumbs';
@@ -13,6 +15,7 @@ export function ComponentDetailPage() {
   const { componentSlug } = useParams();
   const component = componentSlug ? getComponent(componentSlug) : undefined;
   if (!component) return <NotFoundPage />;
+  const boardPart = boardPartForComponent(component.slug);
 
   const sections: { title: string; body: string }[] = [
     { title: 'What is it?', body: component.whatIsIt },
@@ -47,7 +50,22 @@ export function ComponentDetailPage() {
       </header>
 
       <div className="mt-8">
-        <DiagramPlaceholder label={`Annotated photo/diagram of the ${component.name}`} />
+        {boardPart ? (
+          <Link
+            to={`/explore/board?part=${boardPart.id}`}
+            className="panel group flex items-center gap-4 p-5 transition-colors hover:border-accent/50"
+          >
+            <CircuitBoard className="h-7 w-7 shrink-0 text-accent" aria-hidden="true" />
+            <span>
+              <span className="block font-bold text-slate-100 group-hover:text-accent">See it on the Board Map</span>
+              <span className="block text-sm text-slate-400">
+                Where the {boardPart.label.toLowerCase()} sits on the AmbaSat-1 and what it connects to.
+              </span>
+            </span>
+          </Link>
+        ) : (
+          <DiagramPlaceholder label={`Annotated photo/diagram of the ${component.name}`} />
+        )}
       </div>
 
       {component.notes && (

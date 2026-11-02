@@ -1,9 +1,8 @@
-import { Boxes } from 'lucide-react';
+import { ArrowRight, Boxes, CircuitBoard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { components } from '../data/components';
 import { getModule } from '../data/modules';
 import { Breadcrumbs } from '../components/layout/Breadcrumbs';
-import { DiagramPlaceholder } from '../components/ui/DiagramPlaceholder';
 import { StatusChip } from '../components/ui/StatusChip';
 import type { ComponentCategory } from '../types';
 
@@ -32,10 +31,19 @@ export function ComponentExplorerPage() {
       </header>
 
       <div className="mt-10">
-        <DiagramPlaceholder
-          label="Interactive AmbaSat-1 board diagram — click a region to open that component"
-          compact
-        />
+        <Link
+          to="/explore/board"
+          className="panel group flex flex-wrap items-center gap-4 p-6 transition-colors hover:border-accent/50"
+        >
+          <CircuitBoard className="h-8 w-8 shrink-0 text-accent" aria-hidden="true" />
+          <span className="flex-1">
+            <span className="block text-lg font-bold text-slate-100 group-hover:text-accent">Open the Board Map</span>
+            <span className="block text-sm text-slate-400">
+              See every part on a 2D rendering of the AmbaSat-1 board and how they connect to each other.
+            </span>
+          </span>
+          <ArrowRight className="h-5 w-5 text-accent" aria-hidden="true" />
+        </Link>
       </div>
 
       <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -67,7 +67,7 @@ export const components: KitComponent[] = [
       { sourceDocument: MANUAL, page: 27, description: 'Uploading a new build replaces the running program — limited memory.', verificationStatus: 'verified' },
     ],
     contentStatus: 'starter',
-    notes: 'The manual does not name the MCU part number — Additional research required (see the AmbaSat-1 GitHub repository).',
+    notes: 'The How To Guide does not name the MCU; the AmbaSat-1 PCB diagram identifies it as an ATmega328P-AN (8-bit AVR, 32 kB flash). Confirm against the AmbaSat-1 GitHub repository for your board revision.',
   },
   {
     id: 'c-imu',
@@ -95,7 +95,7 @@ export const components: KitComponent[] = [
       { sourceDocument: MANUAL, page: 4, section: 'AmbaSat-1 Main Components', description: 'Tri-axis SMD gyroscope, accelerometer, magnetometer; trajectory and power-saving uses.', verificationStatus: 'verified' },
     ],
     contentStatus: 'starter',
-    notes: 'IMU part number, bus details and dedicated test procedure are not specified in the manual — Additional research required.',
+    notes: 'The AmbaSat-1 PCB diagram identifies the IMU as an LSM9DS1. Bus details and a dedicated test procedure are not specified in the manual — Additional research required.',
   },
   {
     id: 'c-transceiver',
@@ -125,7 +125,7 @@ export const components: KitComponent[] = [
       { sourceDocument: MANUAL, page: 12, section: 'Step One', description: 'Never power the board without the antenna attached.', verificationStatus: 'verified' },
     ],
     contentStatus: 'starter',
-    notes: 'Transceiver part number is not stated in the manual — Additional research required.',
+    notes: 'The How To Guide does not state the transceiver part; the AmbaSat-1 PCB diagram identifies it as a LoRa RFM95(W) module. Confirm against your board revision.',
   },
   {
     id: 'c-antenna',

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { articles } from '../data/articles';
+import { boardConnections, boardParts, busInfo, getBoardPart } from '../data/board';
 import { getCheckpoint } from '../data/checkpoints';
 import { components } from '../data/components';
 import { glossary } from '../data/glossary';
@@ -72,5 +73,20 @@ describe('content data consistency (no dangling links)', () => {
   it('glossary is non-empty and terms are unique', () => {
     expect(glossary.length).toBeGreaterThan(5);
     expect(new Set(glossary.map((g) => g.term)).size).toBe(glossary.length);
+  });
+
+  it('board map parts and connections resolve', () => {
+    expect(new Set(boardParts.map((p) => p.id)).size).toBe(boardParts.length);
+    const labSlugs = new Set(labs.map((l) => l.slug));
+    for (const p of boardParts) {
+      if (p.componentSlug) expect(componentSlugs.has(p.componentSlug), `${p.id} → ${p.componentSlug}`).toBe(true);
+      if (p.labSlug) expect(labSlugs.has(p.labSlug), `${p.id} → ${p.labSlug}`).toBe(true);
+      for (const slug of p.moduleSlugs) expect(moduleSlugs.has(slug), `${p.id} → ${slug}`).toBe(true);
+    }
+    for (const c of boardConnections) {
+      expect(getBoardPart(c.from), `${c.id}.from`).toBeTruthy();
+      expect(getBoardPart(c.to), `${c.id}.to`).toBeTruthy();
+      expect(busInfo[c.bus], c.id).toBeTruthy();
+    }
   });
 });

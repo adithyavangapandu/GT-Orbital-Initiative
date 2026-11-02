@@ -5,6 +5,7 @@ import { Breadcrumbs } from '../components/layout/Breadcrumbs';
 import { Callout } from '../components/ui/Callout';
 import { ComingSoon } from '../components/ui/ComingSoon';
 import { StatusChip } from '../components/ui/StatusChip';
+import { BoardDiagram } from '../components/visualizations/BoardDiagram';
 import { TelemetryPipeline } from '../components/visualizations/TelemetryPipeline';
 import { NotFoundPage } from './NotFoundPage';
 
@@ -15,7 +16,7 @@ export function LabDetailPage() {
   if (!lab) return <NotFoundPage />;
 
   return (
-    <article className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <article className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <Breadcrumbs items={[{ label: 'Engineering Lab', to: '/lab' }, { label: lab.title }]} />
 
       <header>
@@ -32,6 +33,8 @@ export function LabDetailPage() {
       <section className="mt-10">
         {lab.slug === 'telemetry-journey' ? (
           <TelemetryPipeline />
+        ) : lab.slug === 'satellite-anatomy' ? (
+          <BoardDiagram />
         ) : (
           <ComingSoon
             title={`${lab.title} is planned for a later phase`}

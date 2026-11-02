@@ -238,3 +238,40 @@ export interface ResourceSection {
   title: string;
   items: ResourceItem[];
 }
+
+/* ---------- Board map (2D PCB rendering) ---------- */
+
+export type BoardBus = 'i2c' | 'spi' | 'uart' | 'clock' | 'gpio' | 'power' | 'rf' | 'mechanical';
+
+/** How confident we are in a board fact, and where it came from. */
+export type BoardSource = 'manual' | 'pcb-diagram' | 'inferred';
+
+export interface BoardPart {
+  id: string;
+  label: string;
+  /** Part number or short descriptor shown under the label. */
+  partName: string;
+  location: 'on-board' | 'off-board';
+  /** Pre-soldered on MK-II, installed by the student, or external equipment. */
+  install: 'pre-soldered' | 'student-installed' | 'external';
+  summary: string;
+  /** Hit area in SVG viewBox coordinates. */
+  shape: { x: number; y: number; w: number; h: number };
+  componentSlug?: string;
+  moduleSlugs: string[];
+  labSlug?: string;
+  source: BoardSource;
+  note?: string;
+}
+
+export interface BoardConnection {
+  id: string;
+  from: string;
+  to: string;
+  bus: BoardBus;
+  label: string;
+  description: string;
+  /** SVG path in viewBox coordinates. */
+  path: string;
+  source: BoardSource;
+}

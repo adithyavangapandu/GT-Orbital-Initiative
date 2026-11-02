@@ -43,7 +43,8 @@ npm run dev        # http://localhost:5173
 | `/learn` + `/learn/:articleSlug` | 4 primer articles (Discover/Understand) |
 | `/curriculum` + `/curriculum/:moduleSlug` | 10-module course via one shared template |
 | `/explore/components` + `/:componentSlug` | 9-component hardware explorer |
-| `/lab` + `/lab/:labSlug` | Engineering Lab — 5 labs; Telemetry Journey is live |
+| `/explore/board` | Board Map — interactive 2D rendering of the AmbaSat-1 PCB and its connections (`?part=<id>` deep-links) |
+| `/lab` + `/lab/:labSlug` | Engineering Lab — 5 labs; Satellite Anatomy (board map) and Telemetry Journey are live |
 | `/mission` | Personal dashboard: progress, milestones, reset |
 | `/resources` | Filterable resources + glossary |
 | `/about` | About Orbital Initiative |
