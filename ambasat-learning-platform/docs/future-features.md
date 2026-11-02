@@ -4,7 +4,7 @@ Everything below is architected-for but intentionally unbuilt in Phase 1.
 
 ## Interactive labs (4 remaining)
 
-- **Component Explorer 3D/board map** — clickable board regions wired to component pages (slot exists on `/explore/components`).
+- **Board map follow-ups** — the 2D map is live at `/explore/board` (`src/data/board.ts`); next: confirm the `inferred` bus connections against the AmbaSat-1 schematic, add a rear-side view and real board photography.
 - **Sensor Playground** — simulated serial console + sensor perturbation (slot in Module 06).
 - **Payload Decoder** — inspect a LoRaWAN frame byte-by-byte (Module 08 slot).
 - **Mission Operations console** — simulated ground-pass timeline + packet log (Module 09 slot).
